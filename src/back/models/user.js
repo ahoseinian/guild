@@ -1,10 +1,10 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
+const util = require('util');
 
 var Schema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
     unique: true
   },
   email: {
@@ -12,10 +12,8 @@ var Schema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  password: {
-    type: String,
-    required: true
-  },
+  password: String,
+  google: mongoose.Schema.Types.Mixed,
 });
 
 Schema.methods.generateHash = function(password) {
@@ -25,5 +23,27 @@ Schema.methods.generateHash = function(password) {
 Schema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
 };
+
+Schema.statics.findOrCreate = function(query, profile, done) {
+  var User = this;
+  return this.findOne(query, function(err, user) {
+    if (err) return done(err);
+    if (!user) {
+
+      user = new User({
+        email: profile.emails[0].value,
+        google: profile._json
+      });
+
+      user.save(function(err) {
+        if (err) return done(err);
+        return done(err, user);
+      });
+    } else {
+      return done(err, user);
+    }
+  });
+};
+
 
 module.exports = mongoose.model('User', Schema);

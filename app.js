@@ -37,7 +37,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
+app.use(function(req, res, next) {
+  console.log(req.user);
+  if (req.user) res.locals.user = req.user;
+  next();
+});
+
 app.use('/', routes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
