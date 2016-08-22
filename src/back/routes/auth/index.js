@@ -16,15 +16,18 @@ router.get('/google/callback',
     res.redirect('/');
   });
 
+
+router.get('/logout', function(req, res) {
+  req.logOut();
+  res.redirect('/');
+});
+
 // router.get('/signup', function(req, res) {
 //   res.render('auth/signup', {
 //     message: req.query.message
 //   });
 // });
 
-// router.get('/login', function(req, res) {
-//   res.render('auth/login');
-// });
 
 // router.get('/signup', (req, res) => res.render('auth/signup'));
 
@@ -37,10 +40,6 @@ router.get('/google/callback',
 //   failureFlash: true // allow flash messages
 // }));
 
-// router.get('/logout', function(req, res) {
-//   req.logout();
-//   res.redirect('/');
-// });
 
 // // process the signup form
 // router.post('/signup', function(req, res, next) {

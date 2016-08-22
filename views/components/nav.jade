@@ -4,9 +4,15 @@
       | ☰
     #exCollapsingNavbar2.collapse.navbar-toggleable-xs
       a.navbar-brand(href='/') Guildy
-      ul.nav.navbar-nav
+      ul.nav.navbar-nav.pull-xs-right
         if user
           li.nav-item
+            a.nav-link(href='/auth/logout') Sign out
+          li.nav-item
             a.nav-link(href='/user/settings')= user.displayName
+        else
+          li.nav-item
+            a.nav-link(href='/auth' title="Login")
+
         //- li.nav-item
           a.nav-link(href='/auth/login') Log in

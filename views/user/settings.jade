@@ -1,6 +1,7 @@
 extends ../layout
 block content
   .container.m-t-2
+
     .row
       .col-md-7
         form.card(method="post")
@@ -14,21 +15,33 @@ block content
 
             button.btn.btn-block.btn-secondary Submit
 
-      .col-md-
+      .col-md-5
         .card
-          .card-header
-            h3 Characters
           .card-block
-            ul
+            .row
+              .col-xs-2
+                img.card-img-top(src=user.google.image.url, alt=user.google.displayName)
+              h4.card-title.col-xs-10= user.displayName
+        if data.characters.length
+          .card
+            .card-header
+              h3 Characters
+            ul.list-group.list-group-flush
               each item in data.characters
-                =item
-                li= item.name
-                li= item.addres
+                li.list-group-item
+                  span= item.name
+                  small.m-l-1= item.realm
+                  small.m-l-1= item.region
+                  a.pull-xs-right(href='/user/settings/characters/#{item._id}/delete' title="remove #{item.name}")
+                    span.fa.fa-trash
+                  if item.bnet
+                    div
+                      small= 'lvl '+ item.bnet.level
 
         form.card(method="post" action="/user/settings/characters")
           .card-header
             h4 New Character
-          .card-block
+          .card-block.p-x-3
             .form-group.row
               label.col-form-label.col-xs-4 Region
               select.form-control.col-xs-8(name="region")
