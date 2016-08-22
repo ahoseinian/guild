@@ -45,5 +45,8 @@ Schema.statics.findOrCreate = function(query, profile, done) {
   });
 };
 
+Schema.virtual('displayName').get(function() {
+  return this.fullname || this.google.displayName;
+});
 
 module.exports = mongoose.model('User', Schema);
