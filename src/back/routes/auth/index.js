@@ -19,7 +19,9 @@ router.get('/google/callback',
 
 router.get('/logout', function(req, res) {
   req.logOut();
-  res.redirect('/');
+  setTimeout(function() {
+    res.redirect('/');
+  }, 50);
 });
 
 // router.get('/signup', function(req, res) {

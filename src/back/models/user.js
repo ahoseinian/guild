@@ -1,10 +1,12 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
+var sanitizeHtml = require('sanitize-html');
 
 var Schema = new mongoose.Schema({
   username: {
     type: String,
-    unique: true
+    unique: true,
+    trim: true
   },
   email: {
     type: String,
@@ -47,5 +49,6 @@ Schema.statics.findOrCreate = function(query, profile, done) {
 Schema.virtual('displayName').get(function() {
   return this.fullname || this.google.displayName;
 });
+
 
 module.exports = mongoose.model('User', Schema);

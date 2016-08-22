@@ -7,9 +7,15 @@
       ul.nav.navbar-nav.pull-xs-right
         if user
           li.nav-item
-            a.nav-link(href='/auth/logout') Sign out
+            a.nav-link(href='/auth/logout')
+              small 
+                | Sign out 
+                span.fa.fa-sign-out.fa-fw
           li.nav-item
-            a.nav-link(href='/user/settings')= user.displayName
+            a.nav-link(href='/user/settings') 
+              small
+                | Profile 
+                span.fa.fa-user.fa-fw
         else
           li.nav-item
             a.nav-link(href='/auth' title="Login")

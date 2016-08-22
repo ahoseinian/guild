@@ -1,3 +1,13 @@
+mixin region-select(value)
+  .form-group.row
+    label.col-form-label.col-xs-3 Region :
+    select.form-control.col-xs-9(name="region")
+      option(value="us" selected=(value == 'us')) us
+      option(value="eu" selected=(value == 'eu')) eu
+      option(value="kr" selected=(value == 'kr')) kr
+      option(value="tw" selected=(value == 'tw')) tw
+
+
 extends ../layout
 block content
   .container.m-t-2
@@ -8,12 +18,44 @@ block content
           .card-header
             h3 User Settings
           .card-block
-            .form-group
+            .form-group(class="#{data.errors.username ? 'has-danger': ''}")
               label(for='username') Username:
-              input.form-control(id='username' type='text' name='username' value=user.username required)
+              input.form-control(id='username' type='text' name='username' value=user.username required class="#{data.errors.username ? 'form-control-danger': ''}" pattern="^[a-z0-9_-]{3,16}$" title="Available characters  a-z 0-9 _ -")
+              if data.errors.username
+                .form-control-feedback= data.errors.username
               small.text-muted.form-text.text-warning Must be unique
+              small
+                | Your profile 
+                a(href="/#{user.username}")= 'http://localhost:3000/' + (user.username || 'chosen-user-name')
 
             button.btn.btn-block.btn-secondary Submit
+
+        form.card(method="post", action="/user/settings/guild")
+          .card-header
+            h4 Guild
+          .card-block
+            .form-group.row(class="#{data.errors.guildname ? 'has-danger': ''}")
+              .col-xs-3
+                label.col-form-label(for='guildname') 
+                  | Guild Username:
+                  small.text-muted.form-text.text-warning Must be unique
+              .col-xs-9
+                input.form-control(id='guildname' type='text' name='guildname' value=(data.guild ? data.guild.guildname : false) required pattern="^[a-z0-9_-]{3,16}$" title="Available characters  a-z 0-9 _ -"  class="#{data.errors.guildname ? 'form-control-danger': ''}" )
+                if data.errors.guildname
+                  .form-control-feedback= data.errors.guildname
+                small
+                  | Your Guild Profile 
+                  a(href="/#{user.guildname}")= 'http://localhost:3000/' + ((data.guild ? data.guild.guildname : false) || 'chosen-guild-name')
+            .p-x-1
+              +region-select(data.guild ? data.guild.region : null)
+              .form-group.row
+                label.col-form-label.col-xs-4 Guild Name :
+                input.form-control.col-xs-8(type='text' name='name' placeholder="Name" required value=(data.guild ? data.guild.name : false))
+              .form-group.row
+                label.col-form-label.col-xs-4 Realm :
+                input.form-control.col-xs-8(type='text' name='realm' placeholder="Realm" required value=(data.guild ? data.guild.realm : false))
+              .form-group.row
+                button.btn.btn-block.btn-info.col-xs-8.offset-xs-4 Save
 
       .col-md-5
         .card
@@ -32,7 +74,7 @@ block content
                   span= item.name
                   small.m-l-1= item.realm
                   small.m-l-1= item.region
-                  a.pull-xs-right(href='/user/settings/characters/#{item._id}/delete' title="remove #{item.name}")
+                  a.pull-xs-right.text-warning(href='/user/settings/characters/#{item._id}/delete' title="remove #{item.name}")
                     span.fa.fa-trash
                   if item.bnet
                     div
@@ -41,21 +83,13 @@ block content
         form.card(method="post" action="/user/settings/characters")
           .card-header
             h4 New Character
-          .card-block.p-x-3
+          .card-block.p-x-2
+            +region-select
             .form-group.row
-              label.col-form-label.col-xs-4 Region
-              select.form-control.col-xs-8(name="region")
-                option(value="us") us
-                option(value="eu") eu
-                option(value="kr") kr
-                option(value="tw") tw
-              
-              
+              label.col-form-label.col-xs-5 Character Name:
+              input.form-control.col-xs-7(type='text' name='name' placeholder="Name" required)
             .form-group.row
-              label.col-form-label.col-xs-4 Character Name:
-              input.form-control.col-xs-8(type='text' name='name' placeholder="Name" required)
+              label.col-form-label.col-xs-5 Realm:
+              input.form-control.col-xs-7(type='text' name='realm' placeholder="Realm" required)
             .form-group.row
-              label.col-form-label.col-xs-4 Realm:
-              input.form-control.col-xs-8(type='text' name='realm' placeholder="Realm" required)
-            .row
-              button.btn.btn-block.btn-secondary +Submit    
+                button.col-xs-7.offset-xs-5.btn.btn-block.btn-info Submit    

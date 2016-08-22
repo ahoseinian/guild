@@ -3,6 +3,11 @@ var keys = require('../../../keys.js');
 var request = require('superagent');
 
 var Schema = new mongoose.Schema({
+  guildname: {
+    type: String,
+    unique: true,
+    trim: true
+  },
   region: { type: String, required: true },
   realm: { type: String, required: true },
   name: { type: String, required: true },
@@ -14,9 +19,8 @@ var Schema = new mongoose.Schema({
   }
 });
 
-
 Schema.post('save', function(doc) {
-  var address = 'https://' + doc.region + '.api.battle.net/wow/character/' + doc.realm + '/' + doc.name + '?locale=en_GB&apikey=' + keys.bnet.apikey;
+  var address = 'https://' + doc.region + '.api.battle.net/wow/guild/' + doc.realm + '/' + doc.name + '?locale=en_GB&apikey=' + keys.bnet.apikey;
   request
     .get(address)
     .set('Accept', 'application/json')
@@ -27,4 +31,5 @@ Schema.post('save', function(doc) {
     });
 });
 
-module.exports = mongoose.model('Character', Schema);
+
+module.exports = mongoose.model('Guild', Schema);
