@@ -6,7 +6,6 @@ var passportGoogle = require('./passport-google');
 // var passportBnet = require('./passport-bnet');
 // var User = require('../../models/user');
 
-router.get('/', (req, res) => res.render('auth/index'));
 
 router.get('/google',
   passportGoogle.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/userinfo.email'] }));
@@ -17,11 +16,17 @@ router.get('/google/callback',
     res.redirect('/');
   });
 
-router.get('/signup', function(req, res) {
-  res.render('auth/signup', {
-    message: req.query.message
-  });
-});
+// router.get('/signup', function(req, res) {
+//   res.render('auth/signup', {
+//     message: req.query.message
+//   });
+// });
+
+// router.get('/login', function(req, res) {
+//   res.render('auth/login');
+// });
+
+// router.get('/signup', (req, res) => res.render('auth/signup'));
 
 // router.get('/bnet', passportBnet.authenticate('bnet'));
 // router.get('/bnet/callback', passportBnet.authenticate('bnet', { failureRedirect: '/' }), (req, res) => res.redirect('/'));

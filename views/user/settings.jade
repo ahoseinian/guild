@@ -1,0 +1,48 @@
+extends ../layout
+block content
+  .container.m-t-2
+    .row
+      .col-md-7
+        form.card(method="post")
+          .card-header
+            h3 User Settings
+          .card-block
+            .form-group
+              label(for='username') Username:
+              input.form-control(id='username' type='text' name='username' value=user.username required)
+              small.text-muted.form-text.text-warning Must be unique
+
+            button.btn.btn-block.btn-secondary Submit
+
+      .col-md-
+        .card
+          .card-header
+            h3 Characters
+          .card-block
+            ul
+              each item in data.characters
+                =item
+                li= item.name
+                li= item.addres
+
+        form.card(method="post" action="/user/settings/characters")
+          .card-header
+            h4 New Character
+          .card-block
+            .form-group.row
+              label.col-form-label.col-xs-4 Region
+              select.form-control.col-xs-8(name="region")
+                option(value="us") us
+                option(value="eu") eu
+                option(value="kr") kr
+                option(value="tw") tw
+              
+              
+            .form-group.row
+              label.col-form-label.col-xs-4 Character Name:
+              input.form-control.col-xs-8(type='text' name='name' placeholder="Name" required)
+            .form-group.row
+              label.col-form-label.col-xs-4 Realm:
+              input.form-control.col-xs-8(type='text' name='realm' placeholder="Realm" required)
+            .row
+              button.btn.btn-block.btn-secondary +Submit    

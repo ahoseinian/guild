@@ -1,6 +1,5 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
-const util = require('util');
 
 var Schema = new mongoose.Schema({
   username: {
@@ -12,7 +11,7 @@ var Schema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  password: String,
+  // password: String,
   google: mongoose.Schema.Types.Mixed,
 });
 
