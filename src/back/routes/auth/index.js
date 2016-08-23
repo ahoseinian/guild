@@ -13,7 +13,10 @@ router.get('/google',
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    if (req.user.password) {
+      return res.redirect('/');
+    }
+    res.redirect('/auth/password');
   });
 
 
@@ -23,6 +26,24 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
   }, 50);
 });
+
+router.get('/password', require('./authorize').isLoggedIn, function(req, res) {
+  res.render('auth/password', { error: req.query.error });
+});
+
+router.post('/password', require('./authorize').isLoggedIn, function(req, res, next) {
+  if (req.body.password == req.body.confirm_password) {
+    req.user.password = req.body.password;
+    req.user.save(function(err) {
+      if (err) return next(err);
+      return res.redirect('/');
+    });
+  } else {
+    res.redirect('/auth/password?error=Passwords Don\'t Match');
+  }
+
+});
+
 
 // router.get('/signup', function(req, res) {
 //   res.render('auth/signup', {

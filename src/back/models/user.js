@@ -1,6 +1,6 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
-var sanitizeHtml = require('sanitize-html');
+// var sanitizeHtml = require('sanitize-html');
 
 var Schema = new mongoose.Schema({
   username: {
@@ -13,6 +13,12 @@ var Schema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  password: {
+    type: String,
+    maxlength: 16,
+    minlength: 4,
+  },
+
   // password: String,
   google: mongoose.Schema.Types.Mixed,
 });

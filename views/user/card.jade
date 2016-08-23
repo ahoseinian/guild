@@ -1,0 +1,27 @@
+mixin user-card
+  .card
+    .card-header
+      h4.card-title= user.displayName   
+    .card-block
+      .row
+        .col-xs-3
+          img(src=user.google.image.url, alt=user.google.displayName)
+        .col-xs-7
+          div.small
+            ul.list-unstyled
+              li= user.email
+              if user.username
+               li= user.username
+        .col-xs-2
+          .btn-group.pull-xs-right(role='group')
+            button.btn.btn-secondary.btn-sm.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              span.fa.fa-cog
+            .dropdown-menu
+              a.dropdown-item(href='/auth/password', title="Change password") 
+                span.fa.fa-edit 
+                | Change password
+              a.dropdown-item(href='/user/settings', title="Settings") 
+                span.fa.fa-cog 
+                | Profile Settings
+
+
