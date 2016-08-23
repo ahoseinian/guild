@@ -28,5 +28,8 @@ module.exports = {
   },
   'plugins': [
     'react'
-  ]
+  ],
+  'globals': {
+    'document': true
+  }
 };
