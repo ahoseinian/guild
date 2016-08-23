@@ -11,10 +11,15 @@ var keys = require('../../../../keys');
 passport.use(new GoogleStrategy({
     clientID: keys.google.client.id,
     clientSecret: keys.google.client.secret,
-    callbackURL: 'http://localhost:3000/auth/google/callback'
+    callbackURL: 'http://localhost:3000/auth/google/callback',
+    passReqToCallback: true
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ 'google.id': profile.id }, profile, function(err, user) {
+  function(req, accessToken, refreshToken, profile, done) {
+    var query = { 'google.id': profile.id };
+    if (req.user) {
+      query = { '_id': req.user._id };
+    }
+    User.findOrCreate(query, profile, function(err, user) {
       return done(err, user);
     });
   }

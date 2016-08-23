@@ -1,0 +1,29 @@
+extends ../layout
+block content
+  .container.m-t-2
+    form.card.m-x-auto(style="width:25rem" method="post" action="/auth/signup")
+      .card-header.text-xs-center
+        h2 Sign Up
+      .card-block
+        if error
+          .text-danger
+            p= error 
+        .form-group
+          label(for="name") Name:
+          input.form-control#name(type="text", name="fullname" placeholder="John Doe" required minlength="4")
+        .form-group
+          label(for="email") Email:
+          input.form-control#email(type="email", placeholder="email@example.com" name="email" required)
+        .form-group
+          label(for="password") Password
+          input.form-control#password(type="password" pattern=".{4,16}" required title="4 to 16 characters" name="password")
+        .form-group
+          label(for="confirm_password") Confirm Password
+          input.form-control#confirm_password(type="password" pattern=".{4,16}" required title="4 to 16 characters" name="confirm_password")
+        button.btn.btn-primary(type="submit") Sign Up
+        div
+          small have an account?
+          a.btn-link.btn.btn-sm(href="/auth/login") Login
+
+      .card-block
+        a.btn.btn-lg.btn-danger.btn-block(href="/auth/google") Sign Up with Google+

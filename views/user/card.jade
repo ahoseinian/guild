@@ -5,7 +5,8 @@ mixin user-card
     .card-block
       .row
         .col-xs-3
-          img(src=user.google.image.url, alt=user.google.displayName)
+          if user.google
+            img(src=user.google.image.url, alt=user.google.displayName)
         .col-xs-7
           div.small
             ul.list-unstyled
@@ -23,5 +24,6 @@ mixin user-card
               a.dropdown-item(href='/user/settings', title="Settings") 
                 span.fa.fa-cog 
                 | Profile Settings
-
-
+    if !user.google
+      .card-block.text-xs-right
+        a.btn.btn-danger(href="/auth/google") Connect with Google+

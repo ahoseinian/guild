@@ -1,0 +1,23 @@
+extends ../layout
+block content
+  .container.m-t-2
+    form.card.m-x-auto(style="width:25rem" method="post" action="/auth/login")
+      .card-header.text-xs-center
+        h2 Login
+      .card-block
+        if error
+          .text-danger
+            p Email or Password is Incorrect
+        .form-group
+          label(for="email") Email:
+          input.form-control#email(type="email", placeholder="email@example.com" name="email")
+        .form-group
+          label(for="password") Password
+          input.form-control#password(type="password" name="password" pattern=".{4,16}" required title="4 to 16 characters" )
+        button.btn.btn-primary(type="submit") Login
+        div
+          small Don't have an account?
+          a.btn-link.btn.btn-sm(href="/auth/signup") Sign Up
+
+      .card-block
+        a.btn.btn-lg.btn-danger.btn-block(href="/auth/google") Log in with Google+

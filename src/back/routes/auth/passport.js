@@ -56,17 +56,17 @@ passport.use('local-signup', new LocalStrategy({
         if (err) return done(err);
 
         // check to see if theres already a user with that email
-        if (req.body.fullname.length <= 4) {
-          return done(null, false, { message: 'اسم کوتاه است' });
+        if (req.body.fullname.length <= 3) {
+          return done(null, false, { message: 'short name' });
         }
-        if (req.body.password != req.body.repeatpassword) {
-          return done(null, false, { message: 'رمز عبور همخوانی ندارد' });
+        if (req.body.password != req.body.confirm_password) {
+          return done(null, false, { message: 'Passwords Don\'t Match' });
         }
-        if (req.body.password.length <= 4) {
-          return done(null, false, { message: 'رمز عبور کوتاه است' });
+        if (req.body.password.length <= 3) {
+          return done(null, false, { message: 'short password' });
         }
         if (user) {
-          return done(null, false, { message: 'ایمیل قبلا ثبت شده است' });
+          return done(null, false, { message: 'Email Already Exists' });
         }
 
         // if there is no user with that email
@@ -77,13 +77,9 @@ passport.use('local-signup', new LocalStrategy({
         newUser.email = email;
         newUser.password = newUser.generateHash(password);
         newUser.fullname = req.body.fullname;
-        newUser.gender = req.body.gender;
-        newUser.age = req.body.age;
-        newUser.tel = req.body.tel;
-
         // save the user
         newUser.save(function(err) {
-          if (err) throw err;
+          if (err) done(err);
           return done(null, newUser);
         });
 

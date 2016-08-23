@@ -5,8 +5,10 @@ var mongoose = require('mongoose');
 var Schema = new mongoose.Schema({
   username: {
     type: String,
+    trim: true,
+    index: true,
     unique: true,
-    trim: true
+    sparse: true,
   },
   email: {
     type: String,
@@ -15,10 +17,11 @@ var Schema = new mongoose.Schema({
   },
   password: {
     type: String,
-    maxlength: 16,
-    minlength: 4,
   },
-
+  fullname: {
+    type: String,
+    maxlength: 40
+  },
   // password: String,
   google: mongoose.Schema.Types.Mixed,
 });
@@ -36,19 +39,19 @@ Schema.statics.findOrCreate = function(query, profile, done) {
   return this.findOne(query, function(err, user) {
     if (err) return done(err);
     if (!user) {
-
       user = new User({
         email: profile.emails[0].value,
         google: profile._json
       });
 
-      user.save(function(err) {
-        if (err) return done(err);
-        return done(err, user);
-      });
     } else {
-      return done(err, user);
+      user.google = profile._json;
     }
+    
+    user.save(function(err) {
+      if (err) return done(err);
+      return done(err, user);
+    });
   });
 };
 
