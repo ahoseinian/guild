@@ -15,12 +15,12 @@ form.card#guildSubmitForm(method="post", action="/user/settings/guild", class=(d
           | Guild Username:
           small.text-muted.form-text.text-warning Must be unique
       .col-xs-9
-        input.form-control(id='guildname' type='text' name='guildname' value=(data.guild ? data.guild.guildname : false) required pattern="^[a-z0-9_-]{3,16}$" title="Available characters  a-z 0-9 _ -"  class="#{data.errors.guildname ? 'form-control-danger': ''}" )
+        input.form-control(id='guildname' type='text' name='guildname' value=(data.guild ? data.guild.guildname : false) required pattern="^[A-Za-z0-9_-]{3,16}$" title="3-16 characters  a-z 0-9 _ -"  class="#{data.errors.guildname ? 'form-control-danger': ''}" )
         if data.errors.guildname
           .form-control-feedback= data.errors.guildname
         small
           | Your Guild Profile 
-          a(href="/#{user.guildname}")= 'http://localhost:3000/' + ((data.guild ? data.guild.guildname : false) || 'chosen-guild-name')
+          a(href="/#{data.guild ? data.guild.guildname : ''}")= 'http://localhost:3000/' + ((data.guild ? data.guild.guildname : false) || 'chosen-guild-name')
     .p-x-1
       +region-select(data.guild ? data.guild.region : null)
       .form-group.row

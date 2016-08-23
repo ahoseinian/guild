@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
 
     Guild.findOne({ _user: req.user }).exec(function(err, guild) {
       if (guild) {
-        guild.guildname = req.body.guildname;
+        guild.guildname = guildname;
         guild.name = req.body.name;
         guild.region = req.body.region;
         guild.realm = req.body.realm;

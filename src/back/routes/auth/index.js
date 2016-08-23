@@ -7,7 +7,12 @@ var passportGoogle = require('./passport-google');
 // var User = require('../../models/user');
 
 
-router.get('/login', (req, res) => res.render('auth/login', { error: req.query.error }));
+router.get('/login', (req, res) => res.render('auth/login', {
+  error: req.query.error,
+  page: { 
+    title: 'Login',
+    desc: 'Log into to start sharing and connecting with your guild mates' }
+}));
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',

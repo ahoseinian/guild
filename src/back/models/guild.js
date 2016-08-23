@@ -5,8 +5,10 @@ var request = require('superagent');
 var Schema = new mongoose.Schema({
   guildname: {
     type: String,
+    trim: true,
+    index: true,
     unique: true,
-    trim: true
+    sparse: true
   },
   region: { type: String, required: true },
   realm: { type: String, required: true },
