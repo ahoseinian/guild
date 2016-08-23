@@ -5,7 +5,7 @@ gulp.task('serve', function() {
   var server = gls.new('./bin/www'); 
   server.start();
 
-  gulp.watch(['lib/front/**/*.js', 'lib/front/**/*.jsx', 'views/**/*.jade'], function(file) {
+  gulp.watch(['lib/front/**/*.js', 'public/js/**/*.js', 'views/**/*.jade'], function(file) {
     server.notify.apply(server, [file]);
   });
 

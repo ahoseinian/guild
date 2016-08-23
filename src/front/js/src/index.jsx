@@ -7,10 +7,10 @@ class App extends React.Component {
     return ( 
       <div className="row">
         <div className="col-xs-12 col-md-8">
-          <p> Hello React! Test2</p>
+          <p> Hello React! Test3</p>
         </div>
         <div className="col-xs-12 col-md-4">
-          <GuildListBox />
+          <GuildListBox url="/guilds" />
         </div>
       </div>
     ); 
