@@ -12,7 +12,6 @@ module.exports = {
       user: (cb) => User.findOne({ username: v }).exec(cb),
       guild: (cb) => Guild.findOne({ guildname: v }).exec(cb),
     }, function(err, data) {
-      console.log(data);
       if (err) return done('Server error please try agian');
       if (!data.user && !data.guild) return done(null); //it is free
       if (data.user && data.user._id.toString() == user._id.toString()) return done(null); // it is for current user

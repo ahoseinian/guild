@@ -23,14 +23,17 @@ var Schema = new mongoose.Schema({
 
 Schema.post('save', function(doc) {
   var address = 'https://' + doc.region + '.api.battle.net/wow/guild/' + doc.realm + '/' + doc.name + '?locale=en_GB&apikey=' + keys.bnet.apikey;
-  request
-    .get(address)
-    .set('Accept', 'application/json')
-    .end(function(err, res) {
-      doc.bnet = res.body;
-      doc.save();
-      // Calling the end function will send the request
-    });
+  try {
+    request
+      .get(address)
+      .set('Accept', 'application/json')
+      .end(function(err, res) {
+        doc.bnet = res.body;
+        doc.save();
+      });
+  } catch(e) {
+    console.log(e);
+  }
 });
 
 
