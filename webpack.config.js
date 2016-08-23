@@ -35,13 +35,13 @@ module.exports = {
   },
   plugins: [
     // extractCSS,
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-      output: {
-        comments: false,
-      },
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false,
+    //   },
+    //   output: {
+    //     comments: false,
+    //   },
+    // }),
   ]
 };

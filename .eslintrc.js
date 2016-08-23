@@ -17,19 +17,24 @@ module.exports = {
     'no-console': 1
   },
   'env': {
-    es6: true,
+    'es6': true,
     'node': true,
   },
   'extends': 'eslint:recommended',
-  'ecmaFeatures': {
-    'modules': true,
-    'jsx': true,
-    'experimentalObjectRestSpread': true
-  },
+
   'plugins': [
     'react'
   ],
   'globals': {
     'document': true
-  }
+  },
+  'parserOptions': {
+    'sourceType': 'module',
+    'ecmaFeatures': {
+      'modules': true,
+      'jsx': true,
+      'experimentalObjectRestSpread': true
+    },
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
 };
