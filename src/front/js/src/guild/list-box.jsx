@@ -1,57 +1,52 @@
 import React from 'react'; 
-import {ajax} from 'jquery';
 
-export class GuildListBox extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {data: []};
-  }
-  loadFromServer(){
-    ajax({
-      url:this.props.url,
-      dataType:'json',
-      cache:false,
-      success: (data) => {
-        this.setState({data:data});
-      }
-    });
-  }
-  componentDidMount() {
-    this.loadFromServer();
-    // setInterval(this.loadFromServer.bind(this), 5000);
-  }
+export const GuildListBox = (props) => (
+  <div className="card">
+    <div className="card-header"  >
+      <h4> Latest Guild Added </h4>
+    </div> 
+    <List onUserInput={props.onUserInput} items={props.items} />
+  </div> 
+);
 
-  render () {
-    return (
-      <div className="card">
-        <div className="card-header">
-          <h4> Latest Guild Added </h4>
-        </div> 
-        <List items={this.state.data} />
-      </div> 
-    );
-  }  
-} 
-
-GuildListBox.propTypes = { url: React.PropTypes.string.isRequired };
+GuildListBox.propTypes = { 
+  items: React.PropTypes.array,
+  onUserInput: React.PropTypes.func
+};
 
 
 class List extends React.Component {
+  constructor(props){
+    super(props);
+  }
   showItems(){
-    return this.props.items.map((x) => <ListItem item={x} key={x._id} />);
+    return this.props.items.map((x) => <ListItem onUserInput={this.props.onUserInput} item={x} key={x._id} />);
   }
   render(){
-    return <ul className="list-group list-group-flush">
+    return <ul className="list-group list-group-flush"  >
       {this.showItems()}
     </ul>;
   }
 
 }
-List.propTypes = { items: React.PropTypes.array.isRequired };
+List.propTypes = { 
+  items: React.PropTypes.array.isRequired,
+  onUserInput: React.PropTypes.func
+};
+
 
 class ListItem extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(){
+    this.props.onUserInput(this.props.item);
+  }
+
   render(){
-    return <li className="list-group-item">
+    return <li className="list-group-item" onClick={this.handleClick}>
       {this.props.item.name} -
       <span className="text-muted">
         <small> {this.props.item.realm} - </small>
@@ -60,5 +55,8 @@ class ListItem extends React.Component {
     </li>;
   }
 }
-ListItem.propTypes = { item: React.PropTypes.object.isRequired };
+ListItem.propTypes = { 
+  item: React.PropTypes.object.isRequired, 
+  onUserInput: React.PropTypes.func, 
+};
 
