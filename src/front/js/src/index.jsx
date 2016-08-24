@@ -7,13 +7,13 @@ import {ajax} from 'jquery';
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = { guilds:[], selectedGuild: {name: ''} };
+    this.state = { guilds:[], selectedGuild: {} };
     this.handleUserInput = this.handleUserInput.bind(this);
   }
 
-  handleUserInput(guild){
+  handleUserInput(key){
     this.setState({
-      selectedGuild: guild
+      selectedGuild: this.state.guilds[key],
     });
   }
 
@@ -23,7 +23,10 @@ class App extends React.Component {
       dataType:'json',
       cache:false,
       success: (data) => {
-        this.setState({guilds:data});
+        this.setState({ 
+          guilds:data,
+          selectedGuild: data[0]
+        });
       }
     });
   }

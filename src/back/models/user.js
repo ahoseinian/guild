@@ -24,6 +24,15 @@ var Schema = new mongoose.Schema({
   },
   // password: String,
   google: mongoose.Schema.Types.Mixed,
+}, {
+  toJSON: {
+    virtuals: true,
+    transform: function(doc, ret){
+      delete ret.google;
+      delete ret.email;
+      return ret;
+    }
+  }
 });
 
 Schema.methods.generateHash = function(password) {
@@ -58,6 +67,13 @@ Schema.statics.findOrCreate = function(query, profile, done) {
 Schema.virtual('displayName').get(function() {
   return this.fullname || this.google.displayName;
 });
+
+Schema.virtual('info').get(function(){
+  return {
+    img: this.google ? this.google.image.url : 'defaultImage'
+  };
+});
+
 
 
 module.exports = mongoose.model('User', Schema);

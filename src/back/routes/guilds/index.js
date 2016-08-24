@@ -4,7 +4,7 @@ var Guild = require('../../models/guild');
 
 router.get('/', function(req, res, next) {
 
-  Guild.find().limit(10).exec(function(err, data) {
+  Guild.find().populate('_user').limit(10).exec(function(err, data) {
     if (err) return next(err);
     res.json(data);
   });

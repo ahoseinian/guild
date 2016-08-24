@@ -1,4 +1,5 @@
 import React from 'react'; 
+import Infos from './info.jsx';
 
 export const GuildListBox = (props) => (
   <div className="card">
@@ -16,47 +17,58 @@ GuildListBox.propTypes = {
 
 
 class List extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
+    this.state ={ activeKey: 0 };
+    this.setActive = this.setActive.bind(this);
   }
+
+  setActive(key){
+    this.setState({
+      activeKey: key
+    });
+  }
+
   showItems(){
-    return this.props.items.map((x) => <ListItem onUserInput={this.props.onUserInput} item={x} key={x._id} />);
+    return this.props.items.map((item, key) => (
+      <ListItem onUserInput={this.props.onUserInput} item={item} key={key} itemKey={key} isActive={key == this.state.activeKey} setActive={this.setActive} />
+    ));
   }
-  render(){
+
+  render() {
     return <ul className="list-group list-group-flush"  >
       {this.showItems()}
     </ul>;
   }
-
 }
+
 List.propTypes = { 
   items: React.PropTypes.array.isRequired,
   onUserInput: React.PropTypes.func
 };
 
 
-class ListItem extends React.Component {
-  constructor(props){
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
+const ListItem = props => {
+  const handleClick = ()=> {
+    props.onUserInput(props.itemKey);
+    props.setActive(props.itemKey);
+  };
 
-  handleClick(){
-    this.props.onUserInput(this.props.item);
-  }
+  var classNames = 'list-group-item';
+  if(props.isActive) { classNames += ' list-group-item-info'; }
+  return(
+    <li className={classNames} onClick={handleClick} role="button">
+      {props.item.name} 
+      <Infos item={props.item} />
+    </li>
+  ); 
+};
 
-  render(){
-    return <li className="list-group-item" onClick={this.handleClick}>
-      {this.props.item.name} -
-      <span className="text-muted">
-        <small> {this.props.item.realm} - </small>
-        <small> {this.props.item.region}</small>
-      </span>
-    </li>;
-  }
-}
 ListItem.propTypes = { 
-  item: React.PropTypes.object.isRequired, 
-  onUserInput: React.PropTypes.func, 
+  item: React.PropTypes.object.isRequired,
+  itemKey: React.PropTypes.number.isRequired,
+  onUserInput: React.PropTypes.func,
+  setActive: React.PropTypes.func,
+  isActive: React.PropTypes.bool,
 };
 
