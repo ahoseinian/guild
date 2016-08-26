@@ -1,14 +1,18 @@
 'use strict';
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-let extractCSS = new ExtractTextPlugin('../css/[name].css');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// let extractCSS = new ExtractTextPlugin('../css/[name].css');
 
 module.exports = {
   cache: true,
-  entry: './src/front/js/App.js',
+  entry: {
+    app: './src/front/js/App.js',
+    guild: './src/front/js/guild/index.jsx',
+    vendor: ['jquery', 'react', 'react-dom'],
+  },
   output: {
     path: './public/js',
-    filename: 'app.bundle.js',
+    filename: '[name].js',
   },
   module: {
     loaders: [{
@@ -34,6 +38,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
     // extractCSS,
     // new webpack.optimize.UglifyJsPlugin({
     //   compress: {

@@ -52,5 +52,7 @@ class App extends React.Component {
 }
 App.propTypes = { guildUrl: React.PropTypes.string };
 
-
-render(<App guildUrl="/guilds" />, document.getElementById('app'));
+const container = document.getElementById('app');
+if (container){
+  render(<App guildUrl="/guilds" />, container);
+}
