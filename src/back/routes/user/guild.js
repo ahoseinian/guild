@@ -1,6 +1,7 @@
 'use strict';
 var router = require('express').Router();
 var Guild = require('../../models/guild');
+var User = require('../../models/user');
 var Request = require('../../models/request');
 var validator = require('../../models/validator');
 var async = require('async');
@@ -14,12 +15,18 @@ router.get('/', function(req, res, next) {
     guild: (cb) => Guild.findOne({ _user: req.user }).exec(cb),
   }, function(err, data) {
     if (err) return next(err);
-    Request.find({ _guild: data.guild._id }).populate('_user').exec(function(err, requests) {
-      data.requests = requests;
+    async.parallel({
+      requests: (cb) => Request.find({ _guild: data.guild._id, state: 0 }).populate('_user').exec(cb),
+      users: (cb) => User.find({ _guild: data.guild._id }).exec(cb),
+    }, function(err, dataTwo) {
+      if (err) return next(err);
+      data.requests = dataTwo.requests;
+      data.users = dataTwo.users;
       res.render('user/guild', {
         data: data
       });
     });
+
   });
 });
 
@@ -41,10 +48,41 @@ router.post('/', function(req, res, next) {
       }
       guild.save(function(err) {
         if (err) return next(err);
-        res.redirect('/user/settings');
+        req.user._guild = guild;
+        req.user.save(function(err) {
+
+          if (err) return next(err);
+          res.redirect('/user/settings/guild');
+        });
       });
     });
 
+  });
+});
+
+router.get('/r/:id/:type', function(req, res, next) {
+  var state = req.params.type == 'accept' ? 1 : 2;
+  var userId, guildId;
+  async.series([
+    function(cb) {
+      Request.findById(req.params.id, function(err, r) {
+        if (err) return next(err);
+        userId = r._user;
+        guildId = r._guild;
+        r.state = state;
+        r.save(cb);
+      });
+    },
+    function(cb) {
+      User.findById(userId, function(err, user) {
+        if (err) return next(err);
+        user._guild = guildId;
+        user.save(cb);
+      });
+    }
+  ], function(err) {
+    if (err) return next(err);
+    res.redirect('/user/settings/guild');
   });
 });
 

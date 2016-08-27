@@ -1,6 +1,7 @@
 extends ../layout
 include ../components/region-select
 include ../components/user/img
+include ../components/user/block
 block content
   .container.m-t-1
     .row
@@ -45,8 +46,21 @@ block content
             .card-header
               h4 Latest join requests (#{data.requests.length})
             .card-block
-              .row
                 each item in data.requests
-                  .col-xs-3
-                    +user-img( item._user )
-                  .col-xs-9= item.text
+                  +user-block( item._user )
+                  div.small
+                    | message:
+                    = item.text
+                  .text-xs-right
+                    a.btn.btn-sm.btn-info(href="/user/settings/guild/r/#{item._id}/accept")
+                      small.fa.fa-check.fa-fw
+                    a.btn.btn-sm.btn-warning(href="/user/settings/guild/r/#{item._id}/decline")
+                      small.fa.fa-times.fa-fw
+
+        if data.users.length
+          .card
+            .card-header
+              h4 Members
+            .card-block
+              each user in data.users
+                +user-block(user)

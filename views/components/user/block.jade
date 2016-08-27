@@ -1,0 +1,12 @@
+include ./img
+mixin user-block(user)
+  .row
+    .col-xs-3
+      +user-img(user)
+    .col-xs-7
+      div.small
+        ul.list-unstyled
+          li= user.displayName
+          li= user.email
+          if user.username
+           li= user.username
