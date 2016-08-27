@@ -74,6 +74,7 @@ router.get('/r/:id/:type', function(req, res, next) {
       });
     },
     function(cb) {
+      if (state == 2) return cb(null);
       User.findById(userId, function(err, user) {
         if (err) return next(err);
         user._guild = guildId;
