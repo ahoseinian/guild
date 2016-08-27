@@ -1,0 +1,8 @@
+mixin region-select(value)
+  .form-group.row
+    label.col-form-label.col-xs-3 Region :
+    select.form-control.col-xs-9(name="region")
+      option(value="us" selected=(value == 'us')) us
+      option(value="eu" selected=(value == 'eu')) eu
+      option(value="kr" selected=(value == 'kr')) kr
+      option(value="tw" selected=(value == 'tw')) tw

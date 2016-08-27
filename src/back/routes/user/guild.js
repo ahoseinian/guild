@@ -1,7 +1,27 @@
 'use strict';
 var router = require('express').Router();
 var Guild = require('../../models/guild');
+var Request = require('../../models/request');
 var validator = require('../../models/validator');
+var async = require('async');
+
+router.get('/', function(req, res, next) {
+  async.parallel({
+    errors: (done) => done(null, {
+      username: req.query.usernameError,
+      guildname: req.query.guildnameError
+    }),
+    guild: (cb) => Guild.findOne({ _user: req.user }).exec(cb),
+  }, function(err, data) {
+    if (err) return next(err);
+    Request.find({ _guild: data.guild._id }).populate('_user').exec(function(err, requests) {
+      data.requests = requests;
+      res.render('user/guild', {
+        data: data
+      });
+    });
+  });
+});
 
 router.post('/', function(req, res, next) {
   var guildname = req.body.guildname.toLowerCase();

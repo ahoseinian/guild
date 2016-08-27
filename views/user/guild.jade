@@ -1,33 +1,52 @@
-if !data.guild
-  blockquote.blockquote.m-t-3
-    h3
-      span Are You a Guild Master?
-    footer.blockquote-footer
-      button.btn-link#btnShowGuildForm Submit Your Guild 
+extends ../layout
+include ../components/region-select
+include ../components/user/img
+block content
+  .container.m-t-1
+    .row
+      .col-md-8
+        if !data.guild
+          blockquote.blockquote.m-t-3
+            h3
+              span Are You a Guild Master?
+            footer.blockquote-footer
+              button.btn-link#btnShowGuildForm Submit Your Guild 
 
-form.card#guildSubmitForm(method="post", action="/user/settings/guild", class=(data.guild ? '':'hidden-xs-up'))
-  .card-header
-    h4 Guild
-  .card-block
-    .form-group.row(class="#{data.errors.guildname ? 'has-danger': ''}")
-      .col-xs-3
-        label.col-form-label(for='guildname') 
-          | Guild Username:
-          small.text-muted.form-text.text-warning Must be unique
-      .col-xs-9
-        input.form-control(id='guildname' type='text' name='guildname' value=(data.guild ? data.guild.guildname : false) required pattern="^[A-Za-z0-9_-]{3,16}$" title="3-16 characters  a-z 0-9 _ -"  class="#{data.errors.guildname ? 'form-control-danger': ''}" )
-        if data.errors.guildname
-          .form-control-feedback= data.errors.guildname
-        small
-          | Your Guild Profile 
-          a(href="/#{data.guild ? data.guild.guildname : ''}")= 'http://localhost:3000/' + ((data.guild ? data.guild.guildname : false) || 'chosen-guild-name')
-    .p-x-1
-      +region-select(data.guild ? data.guild.region : null)
-      .form-group.row
-        label.col-form-label.col-xs-4 Guild Name :
-        input.form-control.col-xs-8(type='text' name='name' placeholder="Name" required value=(data.guild ? data.guild.name : false))
-      .form-group.row
-        label.col-form-label.col-xs-4 Realm :
-        input.form-control.col-xs-8(type='text' name='realm' placeholder="Realm" required value=(data.guild ? data.guild.realm : false))
-      .form-group.row
-        button.btn.btn-block.btn-info.col-xs-8.offset-xs-4 Save
+        form.card#guildSubmitForm(method="post", action="/user/settings/guild", class=(data.guild ? '':'hidden-xs-up'))
+          .card-header
+            h4 Guild
+          .card-block
+            .form-group.row(class="#{data.errors.guildname ? 'has-danger': ''}")
+              .col-xs-3
+                label.col-form-label(for='guildname') 
+                  | Guild Username:
+                  small.text-muted.form-text.text-warning Must be unique
+              .col-xs-9
+                input.form-control(id='guildname' type='text' name='guildname' value=(data.guild ? data.guild.guildname : false) required pattern="^[A-Za-z0-9_-]{3,16}$" title="3-16 characters  a-z 0-9 _ -"  class="#{data.errors.guildname ? 'form-control-danger': ''}" )
+                if data.errors.guildname
+                  .form-control-feedback= data.errors.guildname
+                small
+                  | Your Guild Profile 
+                  a(href="/#{data.guild ? data.guild.guildname : ''}")= 'http://localhost:3000/' + ((data.guild ? data.guild.guildname : false) || 'chosen-guild-name')
+            .p-x-1
+              +region-select(data.guild ? data.guild.region : null)
+              .form-group.row
+                label.col-form-label.col-xs-4 Guild Name :
+                input.form-control.col-xs-8(type='text' name='name' placeholder="Name" required value=(data.guild ? data.guild.name : false))
+              .form-group.row
+                label.col-form-label.col-xs-4 Realm :
+                input.form-control.col-xs-8(type='text' name='realm' placeholder="Realm" required value=(data.guild ? data.guild.realm : false))
+              .form-group.row
+                button.btn.btn-block.btn-info.col-xs-8.offset-xs-4 Save
+
+      .col-md-4
+        if data.requests.length
+          .card
+            .card-header
+              h4 Latest join requests (#{data.requests.length})
+            .card-block
+              .row
+                each item in data.requests
+                  .col-xs-3
+                    +user-img( item._user )
+                  .col-xs-9= item.text

@@ -24,10 +24,11 @@ var Schema = new mongoose.Schema({
   },
   // password: String,
   google: mongoose.Schema.Types.Mixed,
+  _guild: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {
   toJSON: {
     virtuals: true,
-    transform: function(doc, ret){
+    transform: function(doc, ret) {
       delete ret.google;
       delete ret.email;
       return ret;
@@ -56,7 +57,7 @@ Schema.statics.findOrCreate = function(query, profile, done) {
     } else {
       user.google = profile._json;
     }
-    
+
     user.save(function(err) {
       if (err) return done(err);
       return done(err, user);
@@ -68,7 +69,7 @@ Schema.virtual('displayName').get(function() {
   return this.fullname || this.google.displayName;
 });
 
-Schema.virtual('info').get(function(){
+Schema.virtual('info').get(function() {
   return {
     img: this.google ? this.google.image.url : 'defaultImage'
   };

@@ -1,20 +1,14 @@
-mixin region-select(value)
-  .form-group.row
-    label.col-form-label.col-xs-3 Region :
-    select.form-control.col-xs-9(name="region")
-      option(value="us" selected=(value == 'us')) us
-      option(value="eu" selected=(value == 'eu')) eu
-      option(value="kr" selected=(value == 'kr')) kr
-      option(value="tw" selected=(value == 'tw')) tw
-
-
 extends ../layout
 include ./card
+include ../components/region-select
 block content
   .container.m-t-2
-
+    
     .row
       .col-md-7
+        a.btn.btn-primary(href="/user/settings/guild")
+          span.fa.fa-cog
+          | Guild setting
         form.card(method="post")
           .card-header
             h3 User Settings
@@ -31,7 +25,6 @@ block content
 
             button.btn.btn-block.btn-secondary Submit
 
-        include ./guild
 
       .col-md-5
         +user-card

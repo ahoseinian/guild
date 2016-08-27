@@ -1,0 +1,3 @@
+mixin user-img(user)
+  if user.google
+    img(src=user.google.image.url, alt=user.google.displayName)
