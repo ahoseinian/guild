@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container.m-t-2
-    #app(data-guild=data.item data-user=user)
+    #app(data-guild=data.item, data-user=user, data-requested=data.requested)
 
 block scripts
   script(src='/js/guild.js')
