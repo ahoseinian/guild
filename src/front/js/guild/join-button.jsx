@@ -11,7 +11,6 @@ export default class JoinButton extends React.Component {
     this.state = {
       open: false,
       alreadyRequested: props.requested,
-      message: props.requested ? 'Thank you for your interest we will get back to you as soon as our leader see this :P' : 'tw'
     };
 
     this.toggle = this.toggle.bind(this);

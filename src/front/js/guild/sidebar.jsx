@@ -6,15 +6,14 @@ import { Card, CardText } from '../common/card.jsx';
 const Sidebar = props => (
   <div>
     {(()=> {
-      if(!props.user._guild) return <JoinButton {...props} />;
-      else if(props.requested) 
+      if(props.requested) 
         return (
           <Card block>
             <CardText text="We have your request here and will get back to you when our leader see this" />
           </Card>
         );
+      else if(!props.user._guild) return <JoinButton {...props} />;
     })()}
-    Sidebar
   </div>
 );
 
