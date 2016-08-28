@@ -7,26 +7,19 @@ var validator = require('../../models/validator');
 var async = require('async');
 
 router.get('/', function(req, res, next) {
-  async.parallel({
+  async.autoInject({
     errors: (done) => done(null, {
       username: req.query.usernameError,
       guildname: req.query.guildnameError
     }),
     guild: (cb) => Guild.findOne({ _user: req.user }).exec(cb),
+    requests: (guild, cb) => Request.find({ _guild: guild._id, state: 0 }).populate('_user').exec(cb),
+    users: (guild, cb) => User.find({ _guild: guild._id }).exec(cb),
   }, function(err, data) {
     if (err) return next(err);
-    async.parallel({
-      requests: (cb) => Request.find({ _guild: data.guild._id, state: 0 }).populate('_user').exec(cb),
-      users: (cb) => User.find({ _guild: data.guild._id }).exec(cb),
-    }, function(err, dataTwo) {
-      if (err) return next(err);
-      data.requests = dataTwo.requests;
-      data.users = dataTwo.users;
-      res.render('user/guild', {
-        data: data
-      });
+    res.render('user/guild', {
+      data: data
     });
-
   });
 });
 

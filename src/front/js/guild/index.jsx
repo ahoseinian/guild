@@ -1,32 +1,27 @@
 import React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
 
 import Sidebar from './sidebar.jsx';
 
 export default class GuildPage extends React.Component {
-  constructor(props){
-    super(props);
 
-    this.user = container.dataset.user ? JSON.parse(container.dataset.user) : {};
-    const guild = JSON.parse(container.dataset.guild);
-    this.guildApiUrl = this.props.url + guild.id;
-
-  }
-
-  render(){
+  render() {
     return <div className="row">
       <div className="col-md-8"></div>
       <div className="col-md-4">
-        <Sidebar user={this.user} url={this.guildApiUrl} requested={!!JSON.parse(container.dataset.requested)} />
+        <Sidebar {...this.props} />
       </div>
     </div>;
   }
 }
-GuildPage.propTypes = { 
-  url: React.PropTypes.string.isRequired,
+GuildPage.propTypes = {
+  guild: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object.isRequired,
+  requested: React.PropTypes.bool
 };
 
 const container = document.getElementById('app');
-
-
-render(<GuildPage url="/api/guilds/" />, container);
+const guild = JSON.parse(container.dataset.guild);
+const user = container.dataset.user ? JSON.parse(container.dataset.user) : {};
+const requested = !!JSON.parse(container.dataset.requested);
+render(<GuildPage guild={guild} user={user} requested={requested} />, container);

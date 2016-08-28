@@ -8,7 +8,7 @@ var Schema = new mongoose.Schema({
     trim: true,
     index: true,
     unique: true,
-    sparse: true
+    sparse: true,
   },
   region: { type: String, required: true },
   realm: { type: String, required: true },
@@ -31,9 +31,15 @@ Schema.post('save', function(doc) {
         doc.bnet = res.body;
         doc.save();
       });
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
+});
+
+Schema.virtual('url').get(function() {
+  return {
+    api: '/api/guilds/' + this._id
+  };
 });
 
 
