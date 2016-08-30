@@ -53,7 +53,7 @@ router.get('/logout', function(req, res) {
   req.logOut();
   setTimeout(function() {
     res.redirect('/');
-  }, 50);
+  }, 250);
 });
 
 router.get('/password', require('./authorize').isLoggedIn, function(req, res) {

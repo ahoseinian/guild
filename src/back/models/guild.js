@@ -33,7 +33,7 @@ Schema.post('save', function(doc) {
       });
   } catch (e) {
     console.error(e);
-  }
+  } 
 });
 
 Schema.virtual('url').get(function() {

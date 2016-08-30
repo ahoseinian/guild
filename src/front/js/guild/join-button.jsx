@@ -10,7 +10,7 @@ export default class JoinButton extends React.Component {
     super(props);
     this.state = {
       open: false,
-      alreadyRequested: props.requested,
+      alreadyRequested: false,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -65,7 +65,6 @@ export default class JoinButton extends React.Component {
 JoinButton.propTypes = {
   user: React.PropTypes.object.isRequired,
   guild: React.PropTypes.object.isRequired,
-  requested: React.PropTypes.bool,
 };
 
 

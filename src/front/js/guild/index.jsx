@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-
 import Sidebar from './sidebar.jsx';
 
 export default class GuildPage extends React.Component {

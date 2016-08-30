@@ -9,7 +9,7 @@ gulp.task('serve', function() {
     server.notify.apply(server, [file]);
   });
 
-  gulp.watch(['./src/back/**/*.js', 'app.js'], function() {
+  gulp.watch(['src/back/**/*.js', 'app.js'], function() {
     server.start.bind(server)();
   });
 

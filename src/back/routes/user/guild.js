@@ -80,11 +80,18 @@ router.get('/r/:id/:type', function(req, res, next) {
   });
 });
 
-// router.get('/:id/delete', function(req, res, next){
-//   Character.remove({_id: req.params.id, _user: req.user}).exec(function(err){
-//     if (err) return next(err);
-//     res.redirect('/user/settings');
-//   });
-// });
+//remove user from guild
+router.get('/u/:id/delete', function(req, res, next) {
+  User.findOne({ _id: req.params.id, _guild: req.user._guild }, function(err, user) {
+    if (user == req.user) return res.redirect('/user/settings/guild'); //cant delete owner
+    if (!user) return next(); //404
+    if (err) return next(err);
+    user._guild = undefined;
+    user.save(function(err) {
+      if (err) return next(err);
+      res.redirect('/user/settings/guild');
+    });
+  });
+});
 
 module.exports = router;

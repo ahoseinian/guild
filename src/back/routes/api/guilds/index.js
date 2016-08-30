@@ -1,9 +1,10 @@
 'use strict';
 var router = require('express').Router();
-var Guild = require('../../models/guild');
-var Request = require('../../models/request');
+var auth = require('../../auth/authorize');
+var Guild = require('../../../models/guild');
+var Request = require('../../../models/request');
 var async = require('async');
-
+ 
 router.get('/:guildname', function(req, res, next) {
   Guild.findOne({ guildname: req.params.guildname }, function(err, item) {
     if (err) return next(err);
@@ -11,7 +12,7 @@ router.get('/:guildname', function(req, res, next) {
   });
 });
 
-router.post('/:guildId/join', function(req, res, next) {
+router.post('/:guildId/join', auth.isLoggedIn, function(req, res, next) {
   async.parallel({
     requestCounts: (cb) => Request.count({ _user: req.user }).exec(cb),
     alreadyRequested: (cb) => Request.count({ _user: req.user, _guild: req.params.guildId }).exec(cb),
@@ -31,4 +32,6 @@ router.post('/:guildId/join', function(req, res, next) {
     });
   });
 });
+
+router.use('/:guildId/members', require('./members'));
 module.exports = router;

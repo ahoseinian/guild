@@ -56,11 +56,15 @@ block content
                       small.fa.fa-check.fa-fw
                     a.btn.btn-sm.btn-warning(href="/user/settings/guild/r/#{item._id}/decline")
                       small.fa.fa-times.fa-fw
-
         if data.users.length
           .card
             .card-header
               h4 Members
             .card-block
-              each user in data.users
-                +user-block(user)
+              each item in data.users
+                .row
+                  +user-block(item)
+                  if user._id.toString() != item._id.toString()
+                    .col-xs-2
+                      a.btn.btn-warning.btn-sm(href="/user/settings/guild/u/#{item._id}/delete")
+                        span.fa.fa-times
