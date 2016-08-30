@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '../common/card.jsx';
+import { Card, CardHeader } from '../common/card.jsx';
 import { UserList } from '../user/list.jsx';
 import request from 'superagent';
 
@@ -18,6 +18,7 @@ export class Members extends React.Component {
   render() {
     return (
       <Card>
+        <CardHeader text="Members" icon="users"/>
         <UserList users={this.state.users} />
       </Card>
     );

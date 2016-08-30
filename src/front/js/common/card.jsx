@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Icon from './icon.jsx';
 
 export const Card = props => {
   const cNames = classNames(
@@ -23,4 +24,15 @@ CardText.propTypes = {
   text: React.PropTypes.string.isRequired
 };
 
-export { Card };
+export const CardHeader = props => (
+  <div className="card-header">
+    <h4>
+      <Icon name={props.icon} />
+      {props.text}
+    </h4>
+  </div>
+);
+CardHeader.propTypes = {
+  text: React.PropTypes.string.isRequired,
+  icon: React.PropTypes.string
+};

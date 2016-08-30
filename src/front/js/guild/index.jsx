@@ -1,12 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Sidebar from './sidebar.jsx';
+import Board from './board.jsx';
 
 export default class GuildPage extends React.Component {
 
   render() {
     return <div className="row">
-      <div className="col-md-8"></div>
+      <div className="col-md-8">
+        <Board url={this.props.guild.url.api+'/board'} />
+      </div>
       <div className="col-md-4">
         <Sidebar {...this.props} />
       </div>
