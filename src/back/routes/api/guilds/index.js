@@ -4,7 +4,7 @@ var auth = require('../../auth/authorize');
 var Guild = require('../../../models/guild');
 var Request = require('../../../models/request');
 var async = require('async');
- 
+
 router.get('/:guildname', function(req, res, next) {
   Guild.findOne({ guildname: req.params.guildname }, function(err, item) {
     if (err) return next(err);
@@ -34,4 +34,5 @@ router.post('/:guildId/join', auth.isLoggedIn, function(req, res, next) {
 });
 
 router.use('/:guildId/members', require('./members'));
+router.use('/:guildId/board', require('./board'));
 module.exports = router;

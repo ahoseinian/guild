@@ -3,19 +3,19 @@ import { render } from 'react-dom';
 import Sidebar from './sidebar.jsx';
 import Board from './board.jsx';
 
-export default class GuildPage extends React.Component {
+export const GuildPage = props => {
+  const editable = props.user._guild == props.guild._id;
+  return <div className="row">
+    <div className="col-md-3"></div>
+    <div className="col-md-6">
+      <Board url={props.guild.url.api+'/board'} editable={editable} />
+    </div>
+    <div className="col-md-3">
+      <Sidebar {...props}/>
+    </div>
+  </div>;
+};
 
-  render() {
-    return <div className="row">
-      <div className="col-md-8">
-        <Board url={this.props.guild.url.api+'/board'} />
-      </div>
-      <div className="col-md-4">
-        <Sidebar {...this.props} />
-      </div>
-    </div>;
-  }
-}
 GuildPage.propTypes = {
   guild: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
