@@ -71,7 +71,7 @@ Schema.virtual('displayName').get(function() {
 
 Schema.virtual('info').get(function() {
   return {
-    img: this.google ? this.google.image.url : 'defaultImage'
+    img: this.google ? this.google.image.url : '/images/default-profile.png'
   };
 });
 
