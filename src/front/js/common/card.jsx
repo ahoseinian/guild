@@ -26,10 +26,10 @@ CardText.propTypes = {
 
 export const CardHeader = props => (
   <div className="card-header">
-    <h4>
+    <h5>
       <Icon name={props.icon} />
       {props.text}
-    </h4>
+    </h5>
   </div>
 );
 CardHeader.propTypes = {
