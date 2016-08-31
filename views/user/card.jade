@@ -1,4 +1,4 @@
-mixin user-card
+mixin user-card(user, guild)
   .card
     .card-header
       h4.card-title= user.displayName   
@@ -12,7 +12,10 @@ mixin user-card
             ul.list-unstyled
               li= user.email
               if user.username
-               li= user.username
+                li= user.username
+              if data.guild
+                li
+                  a(href='/'+data.guild.guildname)= data.guild.guildname
         .col-xs-2
           .btn-group.pull-xs-right(role='group')
             button.btn.btn-secondary.btn-sm.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')

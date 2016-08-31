@@ -58,14 +58,15 @@ export class Form extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    let form = e.target;
 
     const data = {
-      text: e.target.childNodes[0].firstChild.value,
-      file: e.target.childNodes[1].firstChild.files[0],
+      text: form.elements['text'].value,
+      file: form.elements['file'].files[0],
     };
 
     this.props.formSubmit(data);
-    e.target.reset();
+    form.reset();
   }
 
   render() {
@@ -76,9 +77,15 @@ export class Form extends React.Component {
             <TextArea placeholder="Say something..." name="text"/>
           </FormGroup>
           <FormGroup>
-            <File name="file"/>
+            <div className="row">
+              <div className="col-sm-6">
+                <File name="file"/>
+              </div>
+              <div className="col-sm-6 text-xs-right">
+                <Button type="primary" text="Submit" />
+              </div>
+            </div>
           </FormGroup>
-          <Button type="primary" text="Submit" />
         </form>
       </Card>
     );
