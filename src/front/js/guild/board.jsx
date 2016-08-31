@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextArea, FormGroup, File } from '../common/form.jsx';
-import { Card } from '../common/card.jsx';
+import { Card, CardHeader, CardBlock } from '../common/card.jsx';
 import Button from '../common/buttons/button.jsx';
 import request from 'superagent';
 import UserImage from '../user/img.jsx';
@@ -71,22 +71,25 @@ export class Form extends React.Component {
 
   render() {
     return (
-      <Card block>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <FormGroup>
-            <TextArea placeholder="Say something..." name="text"/>
-          </FormGroup>
-          <FormGroup>
-            <div className="row">
-              <div className="col-sm-6">
-                <File name="file"/>
+      <Card>
+        <CardHeader text="Make a new story"/>
+        <CardBlock>
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <FormGroup>
+              <TextArea placeholder="Say something..." name="text"/>
+            </FormGroup>
+            <FormGroup>
+              <div className="row">
+                <div className="col-sm-6">
+                  <File name="file"/>
+                </div>
+                <div className="col-sm-6 text-xs-right">
+                  <Button type="primary" text="Submit" />
+                </div>
               </div>
-              <div className="col-sm-6 text-xs-right">
-                <Button type="primary" text="Submit" />
-              </div>
-            </div>
-          </FormGroup>
-        </form>
+            </FormGroup>
+          </form>
+        </CardBlock>
       </Card>
     );
   }

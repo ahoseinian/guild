@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "gulp & webpack --progress --colors --watch"
+    "start": "gulp & webpack-dev-server --inline --no-info & xdg-open 'http://localhost:3000' "
   },
   "dependencies": {
     "async": "^2.0.1",
@@ -54,6 +54,7 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2"
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.0"
   }
 }

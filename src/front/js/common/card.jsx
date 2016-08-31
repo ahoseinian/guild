@@ -36,3 +36,8 @@ CardHeader.propTypes = {
   text: React.PropTypes.string.isRequired,
   icon: React.PropTypes.string
 };
+
+export const CardBlock = props => <div className="card-block">{props.children}</div>;
+CardBlock.propTypes = {
+  children: React.PropTypes.element
+};

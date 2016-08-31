@@ -8,12 +8,12 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
     meta(http-equiv='x-ua-compatible', content='ie=edge')
-
-    link(rel='stylesheet', href='/css/main.css')
+    link(rel='stylesheet', href='http://localhost:8080/assets/css/vendor.css')
+    block links
   body
     include ./components/nav
     block content
 
-    script(src='/js/vendor.bundle.js')
+    script(src='http://localhost:8080/assets/vendor.js')
     block scripts
     

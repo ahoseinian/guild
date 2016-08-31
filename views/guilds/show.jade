@@ -1,8 +1,11 @@
 extends ../layout
 
+block links
+  link(rel='stylesheet', href='http://localhost:8080/assets/css/guild.css')
+
 block content
   .container.m-t-2
     #app(data-guild=data.item, data-user=user, data-requested=data.requested)
 
 block scripts
-  script(src='/js/guild.js')
+  script(src='http://localhost:8080/assets/guild.js')

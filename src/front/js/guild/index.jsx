@@ -1,3 +1,4 @@
+import './guild.scss';
 import React from 'react';
 import { render } from 'react-dom';
 import Sidebar from './sidebar.jsx';
@@ -27,3 +28,4 @@ const guild = JSON.parse(container.dataset.guild);
 const user = container.dataset.user ? JSON.parse(container.dataset.user) : {};
 const requested = !!JSON.parse(container.dataset.requested);
 render(<GuildPage guild={guild} user={user} requested={requested} />, container);
+
