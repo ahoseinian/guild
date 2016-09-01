@@ -5,6 +5,13 @@ var Guild = require('../../../models/guild');
 var Request = require('../../../models/request');
 var async = require('async');
 
+router.get('/', function(req, res, next) {
+  Guild.find().populate('_user').limit(10).exec(function(err, items) {
+    if (err) return next(err);
+    res.json(items);
+  });
+});
+
 router.get('/:guildname', function(req, res, next) {
   Guild.findOne({ guildname: req.params.guildname }, function(err, item) {
     if (err) return next(err);
