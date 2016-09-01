@@ -9,7 +9,7 @@ export const GuildPage = props => {
   return <div className="row">
     <div className="col-md-3"></div>
     <div className="col-md-6">
-      <Board url={props.guild.url.api+'/board'} editable={editable} />
+      <Board url={props.guild.url.api+'/board'} editable={editable} user={user} />
     </div>
     <div className="col-md-3">
       <Sidebar {...props}/>

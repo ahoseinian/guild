@@ -8,14 +8,12 @@
         if user
           li.nav-item
             a.nav-link(href='/auth/logout')
-              small 
-                | Sign out 
-                span.fa.fa-sign-out.fa-fw
+              span.fa.fa-sign-out.fa-fw
+              | Sign out 
           li.nav-item
             a.nav-link(href='/user/settings') 
-              small
-                | Profile 
-                span.fa.fa-user.fa-fw
+              span.fa.fa-user.fa-fw
+              | Profile 
         else
           li.nav-item
             a.nav-link(href='/auth/login' title="Login")

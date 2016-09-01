@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextArea, FormGroup, File } from '../common/form.jsx';
-import { Card, CardHeader, CardBlock } from '../common/card.jsx';
+import { Card, CardHeader, CardFooter, CardBlock } from '../common/card.jsx';
 import Button from '../common/buttons/button.jsx';
 import request from 'superagent';
 import UserImage from '../user/img.jsx';
@@ -38,11 +38,31 @@ export default class Board extends React.Component {
     });
   }
 
+  removeMessage(item) {
+    request
+      .delete(this.props.url + '/' + item._id)
+      .end((err, r) => {
+        if (r.body.status == 'ok') {
+
+          const index = this.state.messages.indexOf(item);
+          if (index > -1) {
+            this.setState({
+              messages: update(this.state.messages, {
+                $splice: [
+                  [index, 1]
+                ]
+              })
+            });
+          }
+        }
+      });
+  }
+
   render() {
     return (
       <div>
         {this.props.editable ? <Form formSubmit={this.handleSubmit.bind(this)} /> : null}
-        <MessageList messages={this.state.messages}/>
+        <MessageList messages={this.state.messages} user={this.props.user} removeMessage={this.removeMessage.bind(this)} />
       </div>
     );
   }
@@ -50,6 +70,7 @@ export default class Board extends React.Component {
 Board.propTypes = {
   url: React.PropTypes.string.isRequired,
   editable: React.PropTypes.bool.isRequired,
+  user: React.PropTypes.object.isRequired,
 };
 
 export class Form extends React.Component {
@@ -72,7 +93,7 @@ export class Form extends React.Component {
   render() {
     return (
       <Card>
-        <CardHeader text="Make a new story"/>
+        <CardHeader text="Make a new story" icon="edit"/>
         <CardBlock>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <FormGroup>
@@ -100,18 +121,20 @@ Form.propTypes = {
 
 
 const MessageList = props => {
-  const messages = props.messages.map((m) => <Message item={m} key={m._id} />);
+  const messages = props.messages.map((m) => <Message item={m} key={m._id} editable={m._user._id == props.user._id} removeMessage={ props.removeMessage } />);
   return <section>{messages}</section>;
 };
 MessageList.propTypes = {
-  messages: React.PropTypes.arrayOf(React.PropTypes.object)
+  messages: React.PropTypes.arrayOf(React.PropTypes.object),
+  user: React.PropTypes.object.isRequired,
+  removeMessage: React.PropTypes.func,
 };
 
 const Message = props => {
   const images = props.item._images.map((x) => <Image item={x} key={x._id} />);
 
-  return <Card block>
-    <div className="row">
+  return <Card>
+    <CardBlock row>
       <div className="col-xs-1">
         <UserImage user={props.item._user} />
       </div>
@@ -122,11 +145,18 @@ const Message = props => {
         </p>
         {images}
       </div>
-    </div>
+    </CardBlock>
+    { props.editable ?
+      <CardFooter right>
+        <Button type="danger" icon="trash" size="sm" onClick={ ()=> props.removeMessage(props.item) }/>
+      </CardFooter>: null
+    }
   </Card>;
 };
 Message.propTypes = {
-  item: React.PropTypes.object.isRequired
+  item: React.PropTypes.object.isRequired,
+  editable: React.PropTypes.bool,
+  removeMessage: React.PropTypes.func,
 };
 
 

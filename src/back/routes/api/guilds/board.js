@@ -3,12 +3,13 @@ var router = require('express').Router({ mergeParams: true });
 var Message = require('../../../models/message');
 var Image = require('../../../models/image');
 var formidable = require('formidable');
+var async = require('async');
 
 
 
 router.get('/', function(req, res, next) {
   Message
-    .find({ _guild: req.params.guildId })
+    .find({ _guild: req.params.guildId, hidden: false })
     .populate('_user _images')
     .sort('-_id')
     .exec(function(err, items) {
@@ -42,5 +43,18 @@ router.post('/', function(req, res, next) {
 
 });
 
+router.delete('/:id', function(req, res, next) {
+  async.autoInject({
+    message: (cb) => Message.findById(req.params.id).exec(cb),
+    hide: function(message, cb) {
+      message.hidden = true;
+      message.save(cb);
+    }
+  }, function(err) {
+    if (err) return next(err);
+    res.json({ status: 'ok' });
+  });
+
+});
 
 module.exports = router;

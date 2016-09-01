@@ -37,7 +37,30 @@ CardHeader.propTypes = {
   icon: React.PropTypes.string
 };
 
-export const CardBlock = props => <div className="card-block">{props.children}</div>;
+export const CardBlock = props => {
+  const cNames = classNames(
+    'card-block', {
+      'row': props.row,
+    }
+  );
+  return <div className={cNames}>{props.children}</div>;
+};
 CardBlock.propTypes = {
-  children: React.PropTypes.element
+  children: React.PropTypes.node,
+  row: React.PropTypes.bool,
+};
+
+
+export const CardFooter = props => {
+  const cNames = classNames(
+    'card-footer', {
+      'text-xs-right': props.right,
+    }
+  );
+  return <div className={cNames}> {props.children} </div>;
+};
+CardFooter.propTypes = {
+  children: React.PropTypes.node,
+  row: React.PropTypes.bool,
+  right: React.PropTypes.bool,
 };

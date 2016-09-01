@@ -6,11 +6,11 @@ var Schema = new mongoose.Schema({
   _guild: { type: mongoose.Schema.Types.ObjectId, ref: 'Guild' },
   date: { type: Date, default: Date.now },
   _images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
+  hidden: { type: Boolean, default: false },
 }, {
   toJSON: {
     virtuals: true
   }
 });
-
 
 module.exports = mongoose.model('Message', Schema);
