@@ -132,11 +132,13 @@ MessageList.propTypes = {
 
 const Message = props => {
   const images = props.item._images.map((x) => <Image item={x} key={x._id} />);
+  const date = new Date(props.item.date);
 
   return <Card>
     <CardBlock row>
-      <div className="col-xs-1">
+      <div className="col-xs-1 text-xs-center">
         <UserImage user={props.item._user} />
+        <small className="text-muted">{date.toLocaleDateString('en-us', {month:'short', day:'numeric'})}</small>
       </div>
       <div className="col-xs-11">
         <p> 
