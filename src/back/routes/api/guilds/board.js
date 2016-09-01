@@ -4,6 +4,7 @@ var Message = require('../../../models/message');
 var Image = require('../../../models/image');
 var formidable = require('formidable');
 var async = require('async');
+var auth = require('../../auth/authorize');
 
 
 
@@ -18,7 +19,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', auth.isLoggedIn, function(req, res, next) {
   var form = new formidable.IncomingForm({ type: true });
   form.parse(req, function(err, fields, files) {
     var msg = new Message({
@@ -43,9 +44,9 @@ router.post('/', function(req, res, next) {
 
 });
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', auth.isLoggedIn, function(req, res, next) {
   async.autoInject({
-    message: (cb) => Message.findById(req.params.id).exec(cb),
+    message: (cb) => Message.findOne({ _id: req.params.id, _user: req.user }).exec(cb),
     hide: function(message, cb) {
       message.hidden = true;
       message.save(cb);

@@ -12,7 +12,7 @@ module.exports = function(req, res, next) {
       });
     },
     requested: function(item, cb) {
-      Request.count({ _guild: item._id, _user: req.user }).exec(cb);
+      Request.count({ _guild: item._id, _user: req.user, state: 0 }).exec(cb);
     },
     page: (item, cb) => cb(null, {
       title: item.guildname,
