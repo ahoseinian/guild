@@ -41,7 +41,7 @@ Schema.methods.generateHash = function(password) {
 };
 
 Schema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
+  return this.password && bcrypt.compareSync(password, this.password);
 };
 
 Schema.statics.findOrCreate = function(query, profile, done) {
@@ -75,8 +75,8 @@ Schema.virtual('info').get(function() {
   };
 });
 
-Schema.pre('findOne', function(next){
-  this.populate('_guild');
+Schema.pre('findOne', function(next) {
+  this.populate('_guild', 'guildname');
   next();
 });
 module.exports = mongoose.model('User', Schema);
