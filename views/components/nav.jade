@@ -14,6 +14,13 @@
             a.nav-link(href='/user/settings') 
               span.fa.fa-user.fa-fw
               | Profile 
+
+          if user._guild
+            li.nav-item
+              a.nav-link(href="/#{user._guild.guildname}")
+                span.fa.fa-users.fa-fw
+                = user._guild.guildname
+
         else
           li.nav-item
             a.nav-link(href='/auth/login' title="Login")

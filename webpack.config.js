@@ -6,7 +6,7 @@ let extractCSS = new ExtractTextPlugin('./css/[name].css');
 module.exports = {
   cache: true,
   entry: {
-    app: './src/front/js/App.js',
+    app: './src/front/js/src/index.jsx',
     guild: './src/front/js/guild/index.jsx',
     vendor: ['react', 'react-dom', 'font-awesome/scss/font-awesome.scss', './src/front/css/main.scss'],
   },

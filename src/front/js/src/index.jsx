@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { GuildListBox } from './guild/list-box.jsx';
 import GuildPage from './guild/page.jsx';
-import { ajax } from 'jquery';
+import request from 'superagent';
 import Search from '../search/Search.jsx';
 import { Card } from '../common/card.jsx';
 
@@ -20,17 +20,14 @@ class App extends React.Component {
   }
 
   loadFromServer() {
-    ajax({
-      url: this.props.guildUrl,
-      dataType: 'json',
-      cache: false,
-      success: (data) => {
+    request
+      .get(this.props.guildUrl)
+      .end((err, r) => {
         this.setState({
-          guilds: data,
-          selectedGuild: data[0]
+          guilds: r.body,
+          selectedGuild: r.body[0]
         });
-      }
-    });
+      });
   }
 
   componentDidMount() {

@@ -1,2 +1,1 @@
 import './password';
-import './setting';

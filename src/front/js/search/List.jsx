@@ -26,7 +26,10 @@ export const ListItem = props => {
         <ol className="breadcrumb m-a-0 ">
           <li className="breadcrumb-item text-muted text-capitalize">{props.item.region}</li>
           <li className="breadcrumb-item text-muted text-capitalize">{props.item.realm}</li>
-          <li className="breadcrumb-item text-capitalize">{props.item.guildname}</li>
+          <li className="breadcrumb-item text-capitalize">
+            <strong> {props.item.name} </strong>
+            <span> ( {props.item.guildname} ) </span>
+          </li>
         </ol>
       </li>
     </a>

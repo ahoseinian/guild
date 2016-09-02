@@ -2,13 +2,15 @@ extends ../layout
 include ./card
 include ../components/region-select
 block content
-  .container.m-t-2
+  .container
     
+    .p-a-1
+      a.btn.btn-primary(href="/user/settings/guild")
+        span.fa.fa-cog
+        | Guild setting
+
     .row
       .col-md-7
-        a.btn.btn-primary(href="/user/settings/guild")
-          span.fa.fa-cog
-          | Guild setting
         form.card(method="post")
           .card-header
             h3 User Settings

@@ -1,8 +1,11 @@
-.search-list{
+.search-list {
   position: relative;
   ul {
-    width:100%;
+    width: 100%;
     position: absolute;
     z-index: 2;
+    .breadcrumb {
+      font-size: .8rem;
+    }
   }
 }

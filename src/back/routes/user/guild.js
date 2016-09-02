@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
     users: (guild, cb) => User.find({ _guild: guild._id }).exec(cb),
   }, function(err, data) {
     if (err) return next(err);
-    res.render('user/guild', {
+    res.render('user/guild/index', {
       data: data
     });
   });
@@ -30,7 +30,7 @@ router.post('/', function(req, res, next) {
   var guildname = req.body.guildname.toLowerCase();
 
   validator.username(guildname, req.user, function(err) {
-    if (err) return res.redirect('/user/settings?guildnameError=' + err);
+    if (err) return res.redirect('/user/settings/guild?guildnameError=' + err);
 
     Guild.findOne({ _user: req.user }).exec(function(err, guild) {
       if (guild) {

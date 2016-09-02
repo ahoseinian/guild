@@ -24,7 +24,7 @@ var Schema = new mongoose.Schema({
   },
   // password: String,
   google: mongoose.Schema.Types.Mixed,
-  _guild: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  _guild: { type: mongoose.Schema.Types.ObjectId, ref: 'Guild' },
 }, {
   toJSON: {
     virtuals: true,
@@ -75,6 +75,8 @@ Schema.virtual('info').get(function() {
   };
 });
 
-
-
+Schema.pre('findOne', function(next){
+  this.populate('_guild');
+  next();
+});
 module.exports = mongoose.model('User', Schema);

@@ -39,7 +39,7 @@ app.use('/storage', express.static(path.join(__dirname, 'src', 'storage')));
 app.use(logger('dev'));
 
 app.use(function(req, res, next) {
-  if (req.user) res.locals.user = req.user;
+  if (req.user) { res.locals.user = req.user; }
   res.locals.page = {
     title: 'Site name',
     desc: 'What are we doing?'
