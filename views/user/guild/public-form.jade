@@ -1,0 +1,16 @@
+form.card(action="/user/settings/guild/public", enctype='multipart/form-data', method="post")
+  .card-header
+    h4 Public Information
+  if data.guild._image
+    img.img-fluid(src=data.guild._image.url)
+  .card-block
+    .form-group
+      textarea.form-control(
+        name="public.text", 
+        rows="7"
+        placeholder="Public information that anybody can see. Usually it is a quick description of your guild and members...")
+          =data.guild.public.text
+    .form-group
+      lable Guild Image:
+      input(type="file", name="image")
+    button.btn.btn-primary(type="submit") Save

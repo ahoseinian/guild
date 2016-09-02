@@ -1,10 +1,10 @@
 'use strict';
 var router = require('express').Router();
-var Guild = require('../../models/guild');
-var User = require('../../models/user');
-var Request = require('../../models/request');
-var validator = require('../../models/validator');
 var async = require('async');
+var Guild = require('../../../models/guild');
+var User = require('../../../models/user');
+var Request = require('../../../models/request');
+var validator = require('../../../models/validator');
 
 router.get('/', function(req, res, next) {
   async.autoInject({
@@ -12,9 +12,9 @@ router.get('/', function(req, res, next) {
       username: req.query.usernameError,
       guildname: req.query.guildnameError
     }),
-    guild: (cb) => Guild.findOne({ _user: req.user }).exec(function(err, item) {
+    guild: (cb) => Guild.findOne({ _user: req.user }).populate('_image').exec(function(err, item) {
       if (!item) return cb(null, new Guild());
-      return cb(null, item); 
+      return cb(null, item);
     }),
     requests: (guild, cb) => Request.find({ _guild: guild._id, state: 0 }).populate('_user').exec(cb),
     users: (guild, cb) => User.find({ _guild: guild._id }).exec(cb),
@@ -96,5 +96,7 @@ router.get('/u/:id/delete', function(req, res, next) {
     });
   });
 });
+
+router.post('/public', require('./public'));
 
 module.exports = router;

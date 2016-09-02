@@ -14,7 +14,9 @@ var Schema = new mongoose.Schema({
   realm: { type: String, required: true },
   name: { type: String, required: true },
   bnet: mongoose.Schema.Types.Mixed,
+  public: { text: String },
   _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  _image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
 }, {
   toJSON: {
     virtuals: true
@@ -33,7 +35,7 @@ Schema.post('save', function(doc) {
       });
   } catch (e) {
     console.error(e);
-  } 
+  }
 });
 
 Schema.virtual('url').get(function() {
