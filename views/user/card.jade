@@ -1,32 +1,28 @@
 mixin user-card(user, guild)
   .card
     .card-header
-      h4.card-title= user.displayName   
+      h4.card-title= user.displayName
+    .p-a-1
+      a.btn.btn-secondary.btn-sm(href='/auth/password', title="Change password") 
+        span.fa.fa-edit
+        | Change password
+      a.btn.btn-secondary.btn-sm(href='/user/settings', title="Settings") 
+        span.fa.fa-cog 
+        | Profile Settings
     .card-block
       .row
         .col-xs-3
           if user.google
             img(src=user.google.image.url, alt=user.google.displayName)
-        .col-xs-7
+        .col-xs-9
           div.small
             ul.list-unstyled
               li= user.email
               if user.username
                 li= user.username
-              if data.guild
+              if guild
                 li
-                  a(href='/'+data.guild.guildname)= data.guild.guildname
-        .col-xs-2
-          .btn-group.pull-xs-right(role='group')
-            button.btn.btn-secondary.btn-sm.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-              span.fa.fa-cog
-            .dropdown-menu
-              a.dropdown-item(href='/auth/password', title="Change password") 
-                span.fa.fa-edit 
-                | Change password
-              a.dropdown-item(href='/user/settings', title="Settings") 
-                span.fa.fa-cog 
-                | Profile Settings
+                  a(href='/'+guild.guildname)= guild.guildname
     if !user.google
       .card-block.text-xs-right
         a.btn.btn-danger(href="/auth/google") Connect with Google+

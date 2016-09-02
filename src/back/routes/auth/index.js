@@ -65,7 +65,7 @@ router.post('/password', require('./authorize').isLoggedIn, function(req, res, n
     req.user.password = req.user.generateHash(req.body.password);
     req.user.save(function(err) {
       if (err) return next(err);
-      return res.redirect('/');
+      return res.redirect('/user/settings');
     });
   } else {
     res.redirect('/auth/password?error=Passwords Don\'t Match');
