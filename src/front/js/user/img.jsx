@@ -4,4 +4,5 @@ const Img = props => <img src={props.user.info.img} alt={props.user.displayName}
 Img.propTypes = {
   user: React.PropTypes.object.isRequired
 };
+
 export default Img;
