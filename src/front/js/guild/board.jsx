@@ -143,10 +143,10 @@ const Message = props => {
         </small>
       </div>
       <div className="col-xs-11">
-        <p>
+        <div className="p-b-1">
           <small className="text-muted">{props.item._user.displayName}</small>
           <CardText text={props.item.text}/>
-        </p>
+        </div>
         {images}
       </div>
     </CardBlock>

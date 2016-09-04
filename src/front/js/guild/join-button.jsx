@@ -1,16 +1,16 @@
 import React from 'react';
 import ajax from 'jquery';
-import JoinSiteButton from '../common/buttons/join-site.jsx';
+import JoinSiteButton from '../common/buttons/href.jsx';
 import Button from '../common/buttons/button.jsx';
 import ToggleButton from '../common/buttons/toggle-button.jsx';
-import { Card } from '../common/card.jsx';
+import {Card} from '../common/card.jsx';
 
 export default class JoinButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      alreadyRequested: false,
+      alreadyRequested: false
     };
 
     this.toggle = this.toggle.bind(this);
@@ -18,56 +18,52 @@ export default class JoinButton extends React.Component {
   }
 
   toggle() {
-    this.setState({ open: !this.state.open });
+    this.setState({
+      open: !this.state.open
+    });
   }
 
   afterSubmit(text) {
-    this.setState({ alreadyRequested: true });
-    ajax
-      .post(this.props.guild.url.api + '/join', { text: text })
-      .done((r) => this.setState({ message: r.message }))
-      .fail((r) => this.setState({ message: r.responseJSON.message }));
+    this.setState({alreadyRequested: true});
+    ajax.post(this.props.guild.url.api + '/join', {text: text}).done((r) => this.setState({message: r.message})).fail((r) => this.setState({message: r.responseJSON.message}));
   }
 
   render() {
-    const form = this.state.open ? <JoinForm afterSubmit={this.afterSubmit} /> : null;
+    const form = this.state.open
+      ? <JoinForm afterSubmit={this.afterSubmit}/>
+      : null;
 
-    const joinMethod = this.props.user.id ?
-      <span>
-        <ToggleButton 
-          className="pull-xs-right"
-          open={this.state.open} 
-          onClick={this.toggle} 
-          size="sm"
-          type="primary"
-          yesProps={{icon:'arrow-up'}} 
-          noProps={{icon:'arrow-down'}}
-        /> 
-        {form}
-      </span> : <JoinSiteButton />;
+    const joinMethod = this.props.user.id
+      ? <span>
+          <ToggleButton className="pull-xs-right" open={this.state.open} onClick={this.toggle} size="sm" type="primary" yesProps={{
+            icon: 'arrow-up'
+          }} noProps={{
+            icon: 'arrow-down'
+          }}/> {form}
+        </span>
+      : <JoinSiteButton/>;
 
-
-    const beforeRequest =
-      <div>
-        <strong> Join? </strong>
-        {joinMethod}
-      </div>;
+    const beforeRequest = <div>
+      <strong>
+        Join?
+      </strong>
+      {joinMethod}
+    </div>;
 
     const afterRequest = <span className="text-justify">{this.state.message}</span>;
 
-
     return <Card block inverse type='info'>
-      {this.state.alreadyRequested ? afterRequest : beforeRequest}
+      {this.state.alreadyRequested
+        ? afterRequest
+        : beforeRequest}
     </Card>;
   }
 }
 
 JoinButton.propTypes = {
   user: React.PropTypes.object.isRequired,
-  guild: React.PropTypes.object.isRequired,
+  guild: React.PropTypes.object.isRequired
 };
-
-
 
 class JoinForm extends React.Component {
 
@@ -79,9 +75,9 @@ class JoinForm extends React.Component {
   render() {
     return <form onSubmit={this.handleSubmit.bind(this)} className="m-t-1">
       <div className="form-group">
-       <textarea className="form-control" required ref={(ref)=> this.messageInput = ref } placeholder="Message"></textarea>
+        <textarea className="form-control" required ref={(ref) => this.messageInput = ref} placeholder="Message"></textarea>
       </div>
-      <Button type="primary" icon="send" text="Send" />
+      <Button type="primary" icon="send" text="Send"/>
     </form>;
   }
 }

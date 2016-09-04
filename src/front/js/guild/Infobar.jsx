@@ -1,8 +1,14 @@
 import React from 'react';
 import {Card, CardText, CardBlock} from '../common/card.jsx';
+import Button from '../common/buttons/href.jsx';
 
 export const Infobar = props => (
   <div className="infobar">
+    {props.owner
+      ? <div className="p-b-1">
+          <Button text="Guild setting" href="/user/settings/guild" icon="cog"/>
+        </div>
+      : null}
     {props.guild.public
       ? <PublicInfo guild={props.guild}/>
       : null}
@@ -14,7 +20,8 @@ export const Infobar = props => (
 );
 Infobar.propTypes = {
   children: React.PropTypes.node,
-  guild: React.PropTypes.object.isRequired
+  guild: React.PropTypes.object.isRequired,
+  owner: React.PropTypes.bool
 };
 
 const PublicInfo = props => {
