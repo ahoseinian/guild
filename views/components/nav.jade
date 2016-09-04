@@ -6,9 +6,6 @@
       a.navbar-brand.text-capitalize(href='/', title=page.title)= page.title
       ul.nav.navbar-nav.pull-xs-right
         if user
-          li.nav-item
-            a.nav-link(href='/user/settings', title="Profile") 
-              span.fa.fa-user.fa-fw
 
           if user._guild
             li.nav-item
@@ -16,6 +13,14 @@
                 span.fa.fa-users.fa-fw
                 = user._guild.guildname
 
+          li.nav-item
+            a.nav-link(href='/user/settings', title="Profile") 
+              span.fa.fa-user.fa-fw
+          if data.requestsCount
+            li.nav-item
+              a.nav-link(href='/user/settings/guild', title="new requests") 
+                span.tag.tag-default= data.requestsCount
+                small  New requests
         else
           li.nav-item
             a.nav-link(href='/auth/login' title="Login")
