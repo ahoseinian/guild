@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Icon from './icon.jsx';
 
 export const Card = props => {
-  const cNames = classNames('card', {
+  const cNames = classNames('card', 'card-inverse', 'bg-inverse', {
     'card-block': props.block,
     'card-inverse': props.inverse,
     [`card-${props.type}`]: true
@@ -39,10 +39,10 @@ CardText.propTypes = {
 };
 
 export const CardHeader = props => (
-  <div className="card-header">
-    <h5>
+  <div className="card-header bg-inverse">
+    <h3 className="h5 m-b-0">
       <Icon name={props.icon}/> {props.text}
-    </h5>
+    </h3>
   </div>
 );
 CardHeader.propTypes = {
@@ -60,7 +60,7 @@ CardBlock.propTypes = {
 };
 
 export const CardFooter = props => {
-  const cNames = classNames('card-footer', {'text-xs-right': props.right});
+  const cNames = classNames('card-footer', 'bg-inverse', {'text-xs-right': props.right});
   return <div className={cNames}>
     {props.children}
   </div>;
