@@ -32,4 +32,4 @@ const PrivateInfo = props => (
 );
 PrivateInfo.propTypes = {
   guild: React.PropTypes.object.isRequired
-}
+};
