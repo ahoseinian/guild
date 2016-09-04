@@ -1,14 +1,15 @@
 import React from 'react';
 import {Card, CardText, CardBlock} from '../common/card.jsx';
 import Button from '../common/buttons/href.jsx';
+import RequestCount from './RequestCount.jsx';
 
 export const Infobar = props => (
   <div className="infobar">
-    {props.owner
-      ? <div className="p-b-1">
-          <Button text="Guild setting" href="/user/settings/guild" icon="cog"/>
-        </div>
-      : null}
+    <div className="p-b-1">
+      <RequestCount guildId={props.guild._id}/> {props.owner
+        ? <Button text="Guild setting" href="/user/settings/guild" icon="cog" sm/>
+        : null}
+    </div>
     {props.guild.public
       ? <PublicInfo guild={props.guild}/>
       : null}

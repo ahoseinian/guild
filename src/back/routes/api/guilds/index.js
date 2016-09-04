@@ -40,6 +40,20 @@ router.post('/:guildId/join', auth.isLoggedIn, function(req, res, next) {
   });
 });
 
+router.get('/:guildId/requests/count', auth.isLoggedIn, function(req, res,next){
+  async.autoInject({
+    userGuild: (cb) => Guild.findOne({_user: req.user}).exec(cb),
+    count: (userGuild, cb) => {
+      if (!userGuild) return cb(null, null);
+      Request.count({_guild: userGuild._id, state:0}).exec(cb);
+    }
+  }, function(err, data){
+    if (err) return next(err);
+    res.json(data);
+  });
+});
+
 router.use('/:guildId/members', require('./members'));
 router.use('/:guildId/board', require('./board'));
+
 module.exports = router;
