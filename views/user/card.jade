@@ -5,6 +5,7 @@ mixin user-card(user, guild)
       h4.card-title= user.displayName
     .p-a-1
       +btn({href:'/auth/password', text:'Change password', icon:'edit'}, 'secondary')
+      +btn({href:'/auth/logout', text:'sign out', icon:'sign-out'}, 'secondary')
     .card-block
       .row
         .col-xs-3

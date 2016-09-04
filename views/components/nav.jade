@@ -7,13 +7,8 @@
       ul.nav.navbar-nav.pull-xs-right
         if user
           li.nav-item
-            a.nav-link(href='/auth/logout')
-              span.fa.fa-sign-out.fa-fw
-              | Sign out 
-          li.nav-item
-            a.nav-link(href='/user/settings') 
+            a.nav-link(href='/user/settings', title="Profile") 
               span.fa.fa-user.fa-fw
-              | Profile 
 
           if user._guild
             li.nav-item
