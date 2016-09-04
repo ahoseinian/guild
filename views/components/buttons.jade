@@ -1,0 +1,4 @@
+mixin btn(btn, state, confirm)
+  a.btn.btn-sm(href=btn.href class="btn-"+(state ? state: 'primary') onclick=confirm)
+    span.fa.fa-fw(class="fa-"+btn.icon)
+    = btn.text

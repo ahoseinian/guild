@@ -97,6 +97,16 @@ router.get('/u/:id/delete', function(req, res, next) {
   });
 });
 
+router.get('/remove', function(req, res, next) {
+  async.series([
+    (cb) => User.update({ _guild: req.user._guild }, { $unset: { '_guild': 1 } }).exec(cb),
+    (cb) => Guild.remove({ _id: req.user._guild }).exec(cb)
+  ], function(err) {
+    if (err) return next(err);
+    res.redirect('/user/settings');
+  });
+});
+
 router.post('/public', require('./public'));
 router.post('/private', require('./private'));
 

@@ -1,13 +1,20 @@
 extends ../layout
 include ./card
 include ../components/region-select
+include ../components/buttons
+
 block content
   .container
-    
+
     .p-a-1
-      a.btn.btn-primary(href="/user/settings/guild")
-        span.fa.fa-cog
-        | Guild setting
+      if !user._guild
+        +btn({href:'/user/settings/guild', icon:'plus', text:'make your guild'}, "success")
+      else
+        if data.guild 
+          +btn({href:'/user/settings/guild', icon:'cog', text:'Guild settings'})
+          +btn({href:'/user/settings/guild/remove', icon:'trash', text:'remove your guild'}, 'danger', 'return confirm(\'Are you sure yo want to destroy your guild and your members? \');')
+        else
+          +btn({href:'/user/settings/guild/leave', icon:'times', text:'Leave your current guild'}, 'warning')
 
     .row
       .col-md-7
@@ -30,7 +37,7 @@ block content
 
       .col-md-5
         +user-card(user, data.guild)
-        
+
         if data.characters.length
           .card
             .card-header
@@ -59,4 +66,4 @@ block content
               label.col-form-label.col-xs-5 Realm:
               input.form-control.col-xs-7(type='text' name='realm' placeholder="Realm" required)
             .form-group.row
-                button.col-xs-7.offset-xs-5.btn.btn-block.btn-info Submit    
+              button.col-xs-7.offset-xs-5.btn.btn-block.btn-info Submit    
