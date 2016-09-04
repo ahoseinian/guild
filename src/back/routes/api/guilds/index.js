@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:guildname', function(req, res, next) {
-  Guild.findOne({ guildname: req.params.guildname }, function(err, item) {
+  Guild.findOne({ guildname: req.params.guildname }).populate('_image').exec(function(err, item) {
     if (err) return next(err);
     res.json(item);
   });

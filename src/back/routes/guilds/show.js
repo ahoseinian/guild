@@ -6,7 +6,7 @@ var async = require('async');
 module.exports = function(req, res, next) {
   async.autoInject({
     item: function(cb) {
-      Guild.findOne({ guildname: req.params.guildname }).exec(function(err, item) {
+      Guild.findOne({ guildname: req.params.guildname }).populate('_image').exec(function(err, item) {
         if (!item) return next(); //404
         return cb(err, item);
       });
