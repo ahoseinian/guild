@@ -98,5 +98,6 @@ router.get('/u/:id/delete', function(req, res, next) {
 });
 
 router.post('/public', require('./public'));
+router.post('/private', require('./private'));
 
 module.exports = router;

@@ -1,7 +1,11 @@
-form.card(action="/user/settings/guild/private", enctype='multipart/form-data', method="post")
+form.card(action="/user/settings/guild/private", method="post")
   .card-header
     h4 Private Information
   .card-block
+    .card-text
+      p.text-muted 
+        span.fa.fa-info.fa-fw
+        | Only your guild members can see this information
     .form-group
       textarea.form-control(
         name="private.text", 

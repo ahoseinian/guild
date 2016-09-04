@@ -15,6 +15,7 @@ var Schema = new mongoose.Schema({
   name: { type: String, required: true },
   bnet: mongoose.Schema.Types.Mixed,
   public: { text: String },
+  private: { text: String },
   _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   _image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
 }, {

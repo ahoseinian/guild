@@ -43,6 +43,8 @@ block content
         .row
           .col-sm-6
             include ./public-form
+          .col-sm-6
+            include ./private-form
 
       .col-md-4
         if data.requests.length
@@ -50,16 +52,16 @@ block content
             .card-header
               h4 Latest join requests (#{data.requests.length})
             .card-block
-                each item in data.requests
-                  +user-block( item._user )
-                  div.small
-                    | message:
-                    = item.text
-                  .text-xs-right
-                    a.btn.btn-sm.btn-info(href="/user/settings/guild/r/#{item._id}/accept")
-                      small.fa.fa-check.fa-fw
-                    a.btn.btn-sm.btn-warning(href="/user/settings/guild/r/#{item._id}/decline")
-                      small.fa.fa-times.fa-fw
+              each item in data.requests
+                +user-block( item._user )
+                div.small
+                  | message:
+                  = item.text
+                .text-xs-right
+                  a.btn.btn-sm.btn-info(href="/user/settings/guild/r/#{item._id}/accept")
+                    small.fa.fa-check.fa-fw
+                  a.btn.btn-sm.btn-warning(href="/user/settings/guild/r/#{item._id}/decline")
+                    small.fa.fa-times.fa-fw
         if data.users.length
           .card
             .card-header
