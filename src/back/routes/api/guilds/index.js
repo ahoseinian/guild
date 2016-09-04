@@ -22,7 +22,7 @@ router.get('/:guildname', function(req, res, next) {
 router.post('/:guildId/join', auth.isLoggedIn, function(req, res, next) {
   async.parallel({
     requestCounts: (cb) => Request.count({ _user: req.user }).exec(cb),
-    alreadyRequested: (cb) => Request.count({ _user: req.user, _guild: req.params.guildId }).exec(cb),
+    alreadyRequested: (cb) => Request.count({ _user: req.user, _guild: req.params.guildId, state:0 }).exec(cb),
   }, function(err, data) {
     if (err) return next(err);
     if (data.alreadyRequested) return res.status(400).json({ message: 'Already Voted' });

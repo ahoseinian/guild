@@ -107,6 +107,20 @@ router.get('/remove', function(req, res, next) {
   });
 });
 
+router.get('/leave', function(req, res, next) {
+  async.autoInject({
+    guild: (cb) => Guild.findOne({ _user: req.user._id }).exec(cb),
+    user: (guild, cb) => {
+      if (guild) return cb(new Error('You are A guild master'));
+      req.user._guild = undefined;
+      req.user.save(cb);
+    }
+  }, function(err){
+    if(err) return next(err);
+    res.redirect('/user/settings');
+  });
+});
+
 router.post('/public', require('./public'));
 router.post('/private', require('./private'));
 

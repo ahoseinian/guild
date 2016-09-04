@@ -2,6 +2,7 @@ extends ../../layout
 include ../../components/region-select
 include ../../components/user/img
 include ../../components/user/block
+include ../../components/buttons
 block content
   .container.m-t-1
     .row
@@ -72,5 +73,4 @@ block content
                   +user-block(item)
                   if user._id.toString() != item._id.toString()
                     .col-xs-2
-                      a.btn.btn-warning.btn-sm(href="/user/settings/guild/u/#{item._id}/delete")
-                        span.fa.fa-times
+                      +btn({href:"/user/settings/guild/u/"+item._id+"/delete", icon:'times'}, 'warning', 'return confirm(\'Are You Sure?\')')
