@@ -11,12 +11,15 @@ $brand-danger: #d9534f;
 $brand-inverse: $gray-dark;
 
 $enable-rounded: false;
-$body-bg: $gray-dark;
 $grid-gutter-width: 1rem;
 
 $breadcrumb-divider: '>';
 
+@import './nav.scss';
 @import '~bootstrap/scss/bootstrap-flex.scss';
 html {
   font-size: 14px;
+}
+body{
+  background: url('~/public/images/bg.jpg');
 }

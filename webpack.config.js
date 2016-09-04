@@ -34,6 +34,9 @@ module.exports = {
     }, {
       test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
       loader: 'file?name=css/fonts/[hash].[ext]'
+    }, {
+      test: /\.jpg$/,
+      loader: 'file'
     }]
   },
   plugins: [

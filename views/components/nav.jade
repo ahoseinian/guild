@@ -1,22 +1,24 @@
-.container
-  nav.navbar.navbar-light.bg-faded
+nav.navbar.navbar-dark.bg-inverse.text-uppercase
+  .container
     button.navbar-toggler.hidden-sm-up(type='button', data-toggle='collapse', data-target='#exCollapsingNavbar2', aria-controls='exCollapsingNavbar2', aria-expanded='false', aria-label='Toggle navigation')
       | ☰
     #exCollapsingNavbar2.collapse.navbar-toggleable-xs
-      a.navbar-brand.text-capitalize(href='/', title=page.title)= page.title
+      a.navbar-brand(href='/', title=page.title)
+        h2.h4.m-b-0
+          strong= page.title
       ul.nav.navbar-nav.pull-xs-right
         if user
 
           if user._guild
             li.nav-item
               a.nav-link(href="/#{user._guild.guildname}")
-                span.fa.fa-users.fa-fw
-                = user._guild.guildname
+                span.fa.fa-users.fa-fw 
+                =  user._guild.guildname
 
           li.nav-item
             a.nav-link(href='/user/settings', title="Profile") 
               span.fa.fa-user.fa-fw
-          if data.requestsCount
+          if data && data.requestsCount
             li.nav-item
               a.nav-link(href='/user/settings/guild', title="new requests") 
                 span.tag.tag-default= data.requestsCount

@@ -1,0 +1,10 @@
+@mixin text-shadow($radius: 10px){
+  text-shadow: 0 0 $radius white;
+  &:hover{
+    text-shadow: 0 0 $radius*2 white;
+  }
+}
+$navbar-dark-color: rgba(255, 255, 255, 0.75);
+.navbar-brand, .nav-link{
+  @include text-shadow(15px);
+}
