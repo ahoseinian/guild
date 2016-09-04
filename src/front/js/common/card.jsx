@@ -35,7 +35,7 @@ export const CardText = props => (
   </div>
 );
 CardText.propTypes = {
-  text: React.PropTypes.string.isRequired
+  text: React.PropTypes.string
 };
 
 export const CardHeader = props => (

@@ -5,11 +5,13 @@ import RequestCount from './RequestCount.jsx';
 
 export const Infobar = props => (
   <div className="infobar">
-    <div className="p-b-1">
-      <RequestCount guildId={props.guild._id}/> {props.owner
-        ? <Button text="Guild setting" href="/user/settings/guild" icon="cog" sm/>
-        : null}
-    </div>
+
+    {props.owner
+      ? <div className="p-b-1">
+          <RequestCount guildId={props.guild._id}/>
+          <Button text="Guild setting" href="/user/settings/guild" icon="cog" sm/>
+        </div>
+      : null}
     {props.guild.public
       ? <PublicInfo guild={props.guild}/>
       : null}
