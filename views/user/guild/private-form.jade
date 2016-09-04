@@ -1,0 +1,11 @@
+form.card(action="/user/settings/guild/private", enctype='multipart/form-data', method="post")
+  .card-header
+    h4 Private Information
+  .card-block
+    .form-group
+      textarea.form-control(
+        name="private.text", 
+        rows="7"
+        placeholder="Private information that anybody can see. Usually it is a quick description of your guild and members...")
+          =data.guild.private.text
+    button.btn.btn-primary(type="submit") Save
