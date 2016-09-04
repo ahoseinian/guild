@@ -1,14 +1,10 @@
+include ../components/buttons
 mixin user-card(user, guild)
   .card
     .card-header
       h4.card-title= user.displayName
     .p-a-1
-      a.btn.btn-secondary.btn-sm(href='/auth/password', title="Change password") 
-        span.fa.fa-edit
-        | Change password
-      a.btn.btn-secondary.btn-sm(href='/user/settings', title="Settings") 
-        span.fa.fa-cog 
-        | Profile Settings
+      +btn({href:'/auth/password', text:'Change password', icon:'edit'}, 'secondary')
     .card-block
       .row
         .col-xs-3

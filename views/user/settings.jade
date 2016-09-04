@@ -8,7 +8,9 @@ block content
 
     .p-a-1
       if !user._guild
-        +btn({href:'/user/settings/guild', icon:'plus', text:'make your guild'}, "success")
+        +btn({href:'/user/settings/guild', icon:'plus', text:'Make your guild'}, "success")
+        span.text-muted  / 
+        +btn({href:'/', icon:'eye', text: 'Search and find a guild to join'})
       else
         if data.guild 
           +btn({href:'/user/settings/guild', icon:'cog', text:'Guild settings'})
