@@ -6,7 +6,7 @@ import Board from './board.jsx';
 import {Infobar} from './Infobar.jsx';
 
 export const GuildPage = props => {
-  const editable = props.user._guild && props.user._guild._id == props.guild._id;
+  const editable = !!props.user._guild && props.user._guild._id == props.guild._id;
   return <div className="row">
     <div className="col-md-3">
       <Infobar guild={props.guild}/>

@@ -11,25 +11,33 @@ Infobar.propTypes = {
   children: React.PropTypes.node
 };
 
-const PublicInfo = props => (
-  <Card>
-    {props.guild._image
-      ? <img src={props.guild._image.url} alt={props.guild.name} className="img-fluid"/>
-      : null}
-    <CardBlock>
-      <CardText text={props.guild.public.text}/>
-    </CardBlock>
-  </Card>
-);
+const PublicInfo = props => {
+  return props.guild.public
+    ? (
+      <Card>
+        {props.guild._image
+          ? <img src={props.guild._image.url} alt={props.guild.name} className="img-fluid"/>
+          : null}
+        <CardBlock>
+          <CardText text={props.guild.public.text}/>
+        </CardBlock>
+      </Card>
+    )
+    : null;
+};
 PublicInfo.propTypes = {
   guild: React.PropTypes.object.isRequired
 };
 
-const PrivateInfo = props => (
-  <Card block>
-    <CardText text={props.guild.private.text}/>
-  </Card>
-);
+const PrivateInfo = props => {
+  return props.guild.private
+    ? (
+      <Card block>
+        <CardText text={props.guild.private.text}/>
+      </Card>
+    )
+    : null;
+};
 PrivateInfo.propTypes = {
   guild: React.PropTypes.object.isRequired
 };
