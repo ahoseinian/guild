@@ -18,11 +18,7 @@ nav.navbar.navbar-dark.bg-inverse.text-uppercase
           li.nav-item
             a.nav-link(href='/user/settings', title="Profile") 
               span.fa.fa-user.fa-fw
-          if data && data.requestsCount
-            li.nav-item
-              a.nav-link(href='/user/settings/guild', title="new requests") 
-                span.tag.tag-default= data.requestsCount
-                small  New requests
+
         else
           li.nav-item
             a.nav-link(href='/auth/login' title="Login")

@@ -3,7 +3,7 @@ import ajax from 'jquery';
 import JoinSiteButton from '../common/buttons/href.jsx';
 import Button from '../common/buttons/button.jsx';
 import ToggleButton from '../common/buttons/toggle-button.jsx';
-import {Card} from '../common/card.jsx';
+import {Card, CardText} from '../common/card.jsx';
 
 export default class JoinButton extends React.Component {
   constructor(props) {
@@ -41,16 +41,13 @@ export default class JoinButton extends React.Component {
             icon: 'arrow-down'
           }}/> {form}
         </span>
-      : <JoinSiteButton/>;
+      : <JoinSiteButton href="/auth/login" sm text="LOGIN / SIGN UP" icon="arrow-right"/>;
 
     const beforeRequest = <div>
-      <strong>
-        Join?
-      </strong>
-      {joinMethod}
+      <CardText text="JOIN?"/> {joinMethod}
     </div>;
 
-    const afterRequest = <span className="text-justify">{this.state.message}</span>;
+    const afterRequest = <CardText text={this.state.message}/>;
 
     return <Card block inverse type='info'>
       {this.state.alreadyRequested
