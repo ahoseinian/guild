@@ -8,7 +8,8 @@ var keys = require('../../../../keys');
 //   credentials (in this case, a token, tokenSecret, and Google profile), and
 //   invoke a callback with a user object.
 
-passport.use(new GoogleStrategy({
+passport.use(
+  new GoogleStrategy({
     clientID: keys.google.client.id,
     clientSecret: keys.google.client.secret,
     callbackURL: 'http://localhost:3000/auth/google/callback',
