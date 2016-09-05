@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Icon from './icon.jsx';
 
 export const Card = props => {
-  const cNames = classNames('card', 'card-inverse', 'bg-inverse', {
+  const cNames = classNames('card', 'card-inverse', 'bg-inverse', props.className, {
     'card-block': props.block,
     'card-inverse': props.inverse,
     [`card-${props.type}`]: true
@@ -14,6 +14,7 @@ export const Card = props => {
 };
 Card.propTypes = {
   type: React.PropTypes.string,
+  className: React.PropTypes.string,
   children: React.PropTypes.node,
   block: React.PropTypes.bool,
   inverse: React.PropTypes.bool
