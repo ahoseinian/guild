@@ -1,50 +1,45 @@
 import React from 'react';
-import Infos from './info.jsx';
+import {Breadcrumb} from '../../guild/breadcrumb.jsx';
+import {Card, CardHeader} from '../../common/card.jsx';
 
 export const GuildListBox = (props) => (
-  <div className="card">
-    <div className="card-header text-xs-center">
-      <h4 className="m-b-0">
-        LATEST GUILDS
-      </h4>
-    </div>
+  <Card>
+    <CardHeader text="LATEST GUILDS"/>
     <List items={props.items}/>
-  </div>
+  </Card>
 );
-
 GuildListBox.propTypes = {
   items: React.PropTypes.array
 };
-
 class List extends React.Component {
-
   showItems() {
     return this.props.items.map((item, key) => (<ListItem item={item} key={key}/>));
   }
 
   render() {
-    return <ul className="list-group list-group-flush">
+    return <ol className="list-unstyled m-b-0">
       {this.showItems()}
-    </ul>;
+    </ol>;
   }
 }
 
 List.propTypes = {
   items: React.PropTypes.array.isRequired
 };
-
 const ListItem = props => {
-
   return (
-    <li role="button" className="list-group-item">
+    <li className="p-a-1 ">
+
       <a href={'/' + props.item.guildname}>
-        {props.item.name}
-        <Infos item={props.item}/>
+
+        <strong className="text-capitalize">@{props.item.guildname}</strong>
+        <div className="pull-xs-right">
+          <Breadcrumb item={props.item}/>
+        </div>
       </a>
     </li>
   );
 };
-
 ListItem.propTypes = {
   item: React.PropTypes.object.isRequired
 };

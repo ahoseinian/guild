@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import request from 'superagent';
 import Search from '../search/Search.jsx';
 import {GuildListBox} from './guild/list-box.jsx';
+import './guild/sidebar.scss';
 
 class App extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class App extends React.Component {
         <div className="col-xs-12 col-md-8">
           <Search url="api/search"/>
         </div>
-        <div className="col-xs-12 col-md-4">
+        <div className="col-xs-12 col-md-4 main-sidebar">
           <GuildListBox items={this.state.guilds}/>
         </div>
       </div>

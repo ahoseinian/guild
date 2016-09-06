@@ -13,7 +13,8 @@ $brand-inverse: $gray-dark;
 $enable-rounded: false;
 $grid-gutter-width: 1rem;
 
-$breadcrumb-divider: '>';
+// $breadcrumb-divider: '>';
+$breadcrumb-item-padding: 0.2rem;
 
 @import './nav.scss';
 @import '~bootstrap/scss/bootstrap-flex.scss';

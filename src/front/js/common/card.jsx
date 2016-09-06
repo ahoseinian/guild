@@ -41,7 +41,7 @@ CardText.propTypes = {
 
 export const CardHeader = props => (
   <div className="card-header bg-inverse">
-    <h3 className="h5 m-b-0">
+    <h3 className="h4 m-b-0  font-weight-bold">
       <Icon name={props.icon}/> {props.text}
     </h3>
   </div>

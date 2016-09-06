@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, CardBlock, CardFooter} from '../common/card.jsx';
 import {Img} from '../common/Img.jsx';
+import {Breadcrumb} from '../guild/breadcrumb.jsx';
 
 export const List = props => {
   const items = props.items.map((item) => <ListItem item={item} key={item._id}/>);
@@ -46,20 +47,5 @@ export const ListItem = props => {
   );
 };
 ListItem.propTypes = {
-  item: React.PropTypes.object.isRequired
-};
-
-const Breadcrumb = props => (
-  <ol className="breadcrumb bg-inverse font-weight-bold text-uppercase m-b-0">
-    <li className="breadcrumb-item text-muted">{props.item.region}</li>
-    <li className="breadcrumb-item text-muted">{props.item.realm}</li>
-    <li className="breadcrumb-item">
-      {props.item.name}
-      {' - '}
-      {props.item.guildname}
-    </li>
-  </ol>
-);
-Breadcrumb.propTypes = {
   item: React.PropTypes.object.isRequired
 };

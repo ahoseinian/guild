@@ -7,8 +7,9 @@
     transition: all 0.2s;
 
     &:hover {
+      z-index: 5;
       box-shadow: 0 0 10px #ccc;
-      transform: scale(1.01);
+      transform: scale(1.2);
     }
   }
 }
