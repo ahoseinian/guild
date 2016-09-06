@@ -6,7 +6,7 @@ import Button from '../common/buttons/href.jsx';
 export const List = props => {
   const items = props.items.map((item) => <ListItem item={item} key={item._id}/>);
   return (
-    <div className="m-t-3">
+    <div className="m-t-1">
       <ul className='list-unstyled'>
         {items}
       </ul>

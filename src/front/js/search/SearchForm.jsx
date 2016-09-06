@@ -44,15 +44,18 @@ export class SearchForm extends React.Component {
   }
   render() {
     return (
-      <form className="form-inline">
-        <div className="form-group">
-          <SelectInput handleChange={this.handleSearch} name="region" items={this.regions}/>
-          <SelectInput handleChange={this.handleSearch} name="realm" items={this.state.realms}/>
-        </div>
-        <div className="form-group">
-          <input type="search" className="form-control" placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
-        </div>
-      </form>
+      <div className="text-xs-center">
+
+        <form className="form-inline">
+          <div className="form-group">
+            <SelectInput handleChange={this.handleSearch} name="region" items={this.regions}/>
+            <SelectInput handleChange={this.handleSearch} name="realm" items={this.state.realms}/>
+          </div>
+          <div className="form-group">
+            <input type="search" className="form-control w-100 form-control-lg" placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
+          </div>
+        </form>
+      </div>
     );
   }
 }
@@ -70,11 +73,11 @@ class SelectInput extends React.Component {
   render() {
 
     const items = this.props.items.map((item, i) => (
-      <option value={item.name} key={i}>{item.name}</option>
+      <option className="text-uppercase" value={item.name} key={i}>{item.name}</option>
     ));
     return (
-      <select className="form-control" onChange={this.handleChange.bind(this)} ref={(ref) => this.input = ref}>
-        <option>{this.props.name}</option>
+      <select className="form-control form-control-lg text-capitalized" onChange={this.handleChange.bind(this)} ref={(ref) => this.input = ref}>
+        <option value="">{this.props.name.toUpperCase()}</option>
         {items}
       </select>
     );
