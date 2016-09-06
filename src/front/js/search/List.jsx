@@ -1,7 +1,6 @@
 import React from 'react';
 import {Card, CardBlock, CardFooter} from '../common/card.jsx';
 import {Img} from '../common/Img.jsx';
-import Button from '../common/buttons/href.jsx';
 
 export const List = props => {
   const items = props.items.map((item) => <ListItem item={item} key={item._id}/>);
