@@ -52,12 +52,16 @@ CardHeader.propTypes = {
 };
 
 export const CardBlock = props => {
-  const cNames = classNames('card-block', {'row': props.row});
+  const cNames = classNames('card-block', {
+    'row': props.row,
+    'card-text': props.text
+  });
   return <div className={cNames}>{props.children}</div>;
 };
 CardBlock.propTypes = {
   children: React.PropTypes.node,
-  row: React.PropTypes.bool
+  row: React.PropTypes.bool,
+  text: React.PropTypes.bool
 };
 
 export const CardFooter = props => {

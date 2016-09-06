@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
     query.realm = req.query.realm;
   }
   async.parallel({
-    guilds: (cb) => Guild.find(query).exec(cb)
+    guilds: (cb) => Guild.find(query).populate('_image').exec(cb)
   }, function(err, data) {
     if (err) return next(err);
     res.json(data);
