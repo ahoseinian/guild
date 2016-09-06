@@ -1,0 +1,27 @@
+extends ../layout
+mixin path(item)
+  .card.card-inverse.bg-inverse.card-block
+    .row
+      .col-sm-12.col-md-7.col-lg-5
+        a.btn.btn-lg.btn-success.m-a-1(href=item.url)
+          h2.m-a-1= item.text  
+      .col-sm-12.col-md-5.col-lg-7
+        ol.text-muted.p-a-1.text-uppercase
+          each i in item.listItems
+            li
+              span!= i
+
+block content
+  .container.m-t-3
+    h1.text-xs-center.display-4.alert.alert-info Choose what to do next ...
+    +path({url:"/user/settings/guild", text:"I AM A GUILD MASTER", listItems:[
+      "Setup your guild profile",
+      "Get your unique url <span class='text-info'>"+page.title+".com/guildname</span>",
+      "Invite more members",
+    ]})
+
+    +path({url:"/", text:"I AM A GUILD MEMBER", listItems:[
+      "Search and find a guild",
+      "Send a join request",
+      "Start sharing with other members"
+    ]})

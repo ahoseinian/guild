@@ -9,7 +9,7 @@ var passportGoogle = require('./passport-google');
 
 router.get('/login', (req, res) => res.render('auth/login', {
   error: req.query.error,
-  page: { 
+  page: {
     title: 'Login',
     desc: 'Log into to start sharing and connecting with your guild mates' }
 }));
@@ -30,7 +30,7 @@ router.post('/signup', function(req, res, next) {
     }
     req.login(user, function(loginErr) {
       if (loginErr) return next(loginErr);
-      return res.redirect('/');
+      return res.redirect('/auth/step/two');
     });
   })(req, res, next);
 });
@@ -65,7 +65,7 @@ router.post('/password', require('./authorize').isLoggedIn, function(req, res, n
     req.user.password = req.user.generateHash(req.body.password);
     req.user.save(function(err) {
       if (err) return next(err);
-      return res.redirect('/user/settings');
+      return res.redirect('/auth/stepTwo');
     });
   } else {
     res.redirect('/auth/password?error=Passwords Don\'t Match');
@@ -73,6 +73,10 @@ router.post('/password', require('./authorize').isLoggedIn, function(req, res, n
 
 });
 
+
+router.get('/step/two', require('./authorize').isLoggedIn, function(req, res){
+  res.render('auth/stepTwo');
+});
 
 
 
