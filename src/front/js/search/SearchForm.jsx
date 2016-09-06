@@ -1,6 +1,7 @@
 import React from 'react';
 import update from 'react-addons-update';
 import request from 'superagent';
+import {Card} from '../common/card.jsx';
 
 export class SearchForm extends React.Component {
   constructor() {
@@ -44,18 +45,21 @@ export class SearchForm extends React.Component {
   }
   render() {
     return (
-      <div className="text-xs-center">
+      <Card block>
 
-        <form className="form-inline">
-          <div className="form-group">
-            <SelectInput handleChange={this.handleSearch} name="region" items={this.regions}/>
-            <SelectInput handleChange={this.handleSearch} name="realm" items={this.state.realms}/>
-          </div>
-          <div className="form-group">
-            <input type="search" className="form-control form-control-lg" placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
-          </div>
-        </form>
-      </div>
+        <div className="text-xs-center">
+
+          <form className="form-inline">
+            <div className="form-group">
+              <SelectInput handleChange={this.handleSearch} name="region" items={this.regions}/>
+              <SelectInput handleChange={this.handleSearch} name="realm" items={this.state.realms}/>
+            </div>
+            <div className="form-group">
+              <input type="search" className="form-control " placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
+            </div>
+          </form>
+        </div>
+      </Card>
     );
   }
 }
@@ -76,7 +80,7 @@ class SelectInput extends React.Component {
       <option className="text-uppercase" value={item.name} key={i}>{item.name}</option>
     ));
     return (
-      <select className="form-control form-control-lg text-capitalized" onChange={this.handleChange.bind(this)} ref={(ref) => this.input = ref}>
+      <select className="form-control  text-capitalized" onChange={this.handleChange.bind(this)} ref={(ref) => this.input = ref}>
         <option value="">{this.props.name.toUpperCase()}</option>
         {items}
       </select>
