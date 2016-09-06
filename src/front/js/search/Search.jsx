@@ -14,12 +14,13 @@ export default class Search extends React.Component {
   }
 
   search(query) {
-    let qry = query.trim();
-    if (!qry) {
+    request.get(this.props.url).query(query).end((err, r) => {
+      if (err)
+        return console.error(err);
+      if (r.body.length) {
+        this.setState({items: r.body.guilds});
+      }
       return this.setState({items: []});
-    }
-    request.get(this.props.url).query({query: query}).end((err, r) => {
-      this.setState({items: r.body.guilds});
     });
   }
 

@@ -4,15 +4,22 @@ var Guild = require('../../models/guild');
 var async = require('async');
 
 router.get('/', function(req, res, next) {
-  var qry = req.query.query.trim();
-  if (!qry) return res.json({ guilds: [] });
+  var name = req.query.name.trim();
+  var query = {};
+  if (name) {
+    query['$or'] = [
+      { guildname: new RegExp('.*' + name + '.*', 'i') },
+      { name: new RegExp('.*' + name + '.*', 'i') },
+    ];
+  }
+  if(req.query.region){
+    query.region = req.query.region;
+  }
+  if(req.query.realm){
+    query.realm = req.query.realm;
+  }
   async.parallel({
-    guilds: (cb) => Guild.find({
-      $or: [
-        { guildname: new RegExp('.*' + qry + '.*', 'i') },
-        { name: new RegExp('.*' + qry + '.*', 'i') },
-      ]
-    }).exec(cb)
+    guilds: (cb) => Guild.find(query).exec(cb)
   }, function(err, data) {
     if (err) return next(err);
     res.json(data);

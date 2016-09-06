@@ -1,25 +1,50 @@
 import React from 'react';
 import update from 'react-addons-update';
+import request from 'superagent';
 
 export class SearchForm extends React.Component {
   constructor() {
     super();
     this.handleSearch = this.handleSearch.bind(this);
+    this.regions = [
+      {
+        name: 'eu'
+      }, {
+        name: 'us'
+      }
+    ];
     this.state = {
-      name: null,
-      region: null
+      realms: [],
+      query: {}
     };
   }
-  handleSearch(query) {
-    this.setState(update(this.state, {$set: query}));
+  handleSearch(key, value) {
+    let obj = {};
+    obj[key] = {
+      $set: value
+    };
+    this.setState({
+      query: update(this.state.query, obj)
+    }, function() {
+      this.props.handleSearch(this.state.query);
+    });
   }
   handleInput() {
-    this.handleSearch({name: this.input.value});
+    this.handleSearch('name', this.input.value);
+  }
+  getRealms() {
+    request.get('/api/realms/' + this.state.query.region).end((err, r) => {
+      this.setState({realms: r.body});
+    });
+  }
+  componentDidMount() {
+    this.getRealms();
   }
   render() {
     return (
       <form className="form-inline">
-        <Regions handleChange={this.handleSearch}/>
+        <SelectInput handleChange={this.handleSearch} name="region" items={this.regions}/>
+        <SelectInput handleChange={this.handleSearch} name="realm" items={this.state.realms}/>
         <input type="search" className="form-control" placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
       </form>
     );
@@ -29,26 +54,29 @@ SearchForm.propTypes = {
   handleSearch: React.PropTypes.func.isRequired
 };
 
-class Regions extends React.Component {
-  constructor() {
-    super();
-    this.items = ['eu', 'us'].map((item, i) => (
-      <option value={item} key={i}>{item}</option>
-    ));
+class SelectInput extends React.Component {
+  constructor(props) {
+    super(props);
   }
   handleChange() {
-    this.props.handleChange({region: this.region.value});
+    this.props.handleChange(this.props.name, this.input.value);
   }
   render() {
 
+    const items = this.props.items.map((item, i) => (
+      <option value={item.name} key={i}>{item.name}</option>
+    ));
     return (
-      <select className="form-control" onChange={this.handleChange.bind(this)} ref={(ref) => this.region = ref}>
-        {this.items}
+      <select className="form-control" onChange={this.handleChange.bind(this)} ref={(ref) => this.input = ref}>
+        <option>{this.props.name}</option>
+        {items}
       </select>
     );
   }
 }
 
-Regions.propTypes = {
-  handleChange: React.PropTypes.func.isRequired
+SelectInput.propTypes = {
+  name: React.PropTypes.string.isRequired,
+  handleChange: React.PropTypes.func.isRequired,
+  items: React.PropTypes.array
 };
