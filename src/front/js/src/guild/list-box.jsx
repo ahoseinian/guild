@@ -3,9 +3,9 @@ import Infos from './info.jsx';
 
 export const GuildListBox = (props) => (
   <div className="card">
-    <div className="card-header">
-      <h4>
-        Latest Guild Added
+    <div className="card-header text-xs-center">
+      <h4 className="m-b-0">
+        LATEST GUILDS
       </h4>
     </div>
     <List items={props.items}/>

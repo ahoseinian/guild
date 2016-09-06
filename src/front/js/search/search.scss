@@ -1,8 +1,14 @@
-.search-place{
-  .form-group{
-    margin-right:0.5rem;
+.search-place {
+  .form-group {
+    margin-right: 0.5rem;
   }
-  .form-group:last-child{
-    width: 50%;
+
+  .card {
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 0 0 10px #ccc;
+      transform: scale(1.01);
+    }
   }
 }

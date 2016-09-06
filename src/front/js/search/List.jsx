@@ -20,24 +20,30 @@ List.propTypes = {
 
 export const ListItem = props => {
   return (
-    <Card>
-      <CardBlock text>
-        <div className="row">
-          <div className="col-md-2">
-            <a href={'/' + props.item.guildname} title={props.item.name}>
-              <Img url={props.item._image.url} alt={props.item.name} fluid/>
-            </a>
+    <a href={'/' + props.item.guildname} title={props.item.name}>
+      <Card>
+        <CardBlock text>
+          <div className="row">
+            <div className="col-md-3">
+              {props.item._image
+                ? <Img url={props.item._image.url} alt={props.item.name} fluid/>
+                : null}
+            </div>
+            <div className="col-md-9">
+              <Breadcrumb item={props.item}/>
+              <p className="small">
+                {props.item.public
+                  ? props.item.public.text
+                  : null}
+              </p>
+              <CardFooter right>
+                {/* <Button href={'/' + props.item.guildname} text="Guild Page" icon="users" size="sm"/> */}
+              </CardFooter>
+            </div>
           </div>
-          <div className="col-md-10">
-            <Breadcrumb item={props.item}/>
-            <p>{props.item.public.text}</p>
-            <CardFooter right>
-              <Button href={'/' + props.item.guildname} text="Guild Page" icon="users" size="sm"/>
-            </CardFooter>
-          </div>
-        </div>
-      </CardBlock>
-    </Card>
+        </CardBlock>
+      </Card>
+    </a>
   );
 };
 ListItem.propTypes = {
@@ -49,11 +55,9 @@ const Breadcrumb = props => (
     <li className="breadcrumb-item text-muted">{props.item.region}</li>
     <li className="breadcrumb-item text-muted">{props.item.realm}</li>
     <li className="breadcrumb-item">
-      <strong>
-        {props.item.name}
-        - {props.item.guildname}
-      </strong>
-
+      {props.item.name}
+      {' - '}
+      {props.item.guildname}
     </li>
   </ol>
 );

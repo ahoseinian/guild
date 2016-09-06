@@ -52,7 +52,7 @@ export class SearchForm extends React.Component {
             <SelectInput handleChange={this.handleSearch} name="realm" items={this.state.realms}/>
           </div>
           <div className="form-group">
-            <input type="search" className="form-control w-100 form-control-lg" placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
+            <input type="search" className="form-control form-control-lg" placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
           </div>
         </form>
       </div>
