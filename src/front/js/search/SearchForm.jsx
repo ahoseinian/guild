@@ -26,7 +26,7 @@ export class SearchForm extends React.Component {
     this.setState({
       query: update(this.state.query, obj)
     }, function() {
-      if (key == 'region') 
+      if (key == 'region')
         this.getRealms();
       this.props.handleSearch(this.state.query);
     });
@@ -45,9 +45,13 @@ export class SearchForm extends React.Component {
   render() {
     return (
       <form className="form-inline">
-        <SelectInput handleChange={this.handleSearch} name="region" items={this.regions}/>
-        <SelectInput handleChange={this.handleSearch} name="realm" items={this.state.realms}/>
-        <input type="search" className="form-control" placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
+        <div className="form-group">
+          <SelectInput handleChange={this.handleSearch} name="region" items={this.regions}/>
+          <SelectInput handleChange={this.handleSearch} name="realm" items={this.state.realms}/>
+        </div>
+        <div className="form-group">
+          <input type="search" className="form-control" placeholder="Search Guilds ..." onKeyUp={this.handleInput.bind(this)} ref={(ref) => this.input = ref}/>
+        </div>
       </form>
     );
   }
