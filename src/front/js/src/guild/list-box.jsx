@@ -17,7 +17,7 @@ class List extends React.Component {
   }
 
   render() {
-    return <ol className="list-unstyled m-b-0">
+    return <ol className="list-unstyled m-b-0 p-a-1">
       {this.showItems()}
     </ol>;
   }
@@ -28,10 +28,8 @@ List.propTypes = {
 };
 const ListItem = props => {
   return (
-    <li className="p-a-1 ">
-
+    <li className="p-b-1">
       <a href={'/' + props.item.guildname}>
-
         <strong className="text-capitalize">@{props.item.guildname}</strong>
         <div className="pull-xs-right">
           <Breadcrumb item={props.item}/>

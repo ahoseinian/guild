@@ -24,14 +24,15 @@ export const ListItem = props => {
       <Card>
         <CardBlock text>
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-xs-12 col-lg-3 m-b-1">
               {props.item._image
                 ? <Img url={props.item._image.url} alt={props.item.name} fluid/>
                 : null}
             </div>
-            <div className="col-md-9">
+            <div className="col-xs-12 col-lg-9">
+              <h2 className="p-b-1">@{props.item.guildname}</h2>
               <Breadcrumb item={props.item}/>
-              <p className="small">
+              <p className="small p-t-1">
                 {props.item.public
                   ? props.item.public.text
                   : null}

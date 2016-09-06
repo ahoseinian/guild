@@ -25,6 +25,7 @@ var Schema = new mongoose.Schema({
 });
 
 Schema.post('save', function(doc) {
+  console.log('fetching from bnet');
   var address = 'https://' + doc.region + '.api.battle.net/wow/guild/' + doc.realm + '/' + doc.name + '?locale=en_GB&apikey=' + keys.bnet.apikey;
   try {
     request
