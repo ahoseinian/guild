@@ -26,6 +26,8 @@ export class SearchForm extends React.Component {
     this.setState({
       query: update(this.state.query, obj)
     }, function() {
+      if (key == 'region') 
+        this.getRealms();
       this.props.handleSearch(this.state.query);
     });
   }

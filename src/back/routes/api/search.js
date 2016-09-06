@@ -4,7 +4,7 @@ var Guild = require('../../models/guild');
 var async = require('async');
 
 router.get('/', function(req, res, next) {
-  var name = req.query.name.trim();
+  var name = req.query.name ? req.query.name.trim() : null;
   var query = {};
   if (name) {
     query['$or'] = [

@@ -11,16 +11,16 @@ export default class Search extends React.Component {
     this.state = {
       items: []
     };
+    this.search({});
   }
 
   search(query) {
     request.get(this.props.url).query(query).end((err, r) => {
-      if (err)
+      if (err) 
         return console.error(err);
-      if (r.body.length) {
+      if (r.body.guilds.length) {
         this.setState({items: r.body.guilds});
       }
-      return this.setState({items: []});
     });
   }
 
