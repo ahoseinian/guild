@@ -27,9 +27,10 @@ class App extends React.Component {
 
     return (
       <div className="row">
-        <div className="col-xs-12 col-md-8"></div>
-        <div className="col-xs-12 col-md-4">
+        <div className="col-xs-12 col-md-8">
           <Search url="api/search"/>
+        </div>
+        <div className="col-xs-12 col-md-4">
           <GuildListBox items={this.state.guilds}/>
         </div>
       </div>

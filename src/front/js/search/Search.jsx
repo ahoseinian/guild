@@ -2,7 +2,7 @@ import './search.scss';
 import React from 'react';
 import request from 'superagent';
 import {Card} from '../common/card.jsx';
-import {Input} from './Input.jsx';
+import {SearchForm} from './SearchForm.jsx';
 import {List} from './List.jsx';
 
 export default class Search extends React.Component {
@@ -26,7 +26,7 @@ export default class Search extends React.Component {
   render() {
     return (
       <Card className="search-box">
-        <Input handleSearch={this.search.bind(this)}/>
+        <SearchForm handleSearch={this.search.bind(this)}/>
         <List items={this.state.items}/>
       </Card>
     );
